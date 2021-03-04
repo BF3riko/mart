@@ -1,26 +1,26 @@
 import React, { Component, createRef } from "react";
 
-import Style from './css/style.module.css';
+import Style from "./css/style.module.css";
 
 class Winwheel extends Component {
   state = {
     list: [
-        "10",
-        "25",
-        "15",
-        "П",
-        "10",
-        "Дуля",
-        "20",
-        "x4",
-        "5",
-        "x2",
-        "15",
-        "П",
-        "20",
-        "+",
-        "5",
-        "Дуля"
+      "10",
+      "25",
+      "15",
+      "П",
+      "10",
+      "Дуля",
+      "20",
+      "x4",
+      "5",
+      "x2",
+      "15",
+      "П",
+      "20",
+      "+",
+      "5",
+      "Дуля",
     ],
     radius: 75, // PIXELS
     rotate: 0, // DEGREES
@@ -30,21 +30,21 @@ class Winwheel extends Component {
     offset: null, // RADIANS
     net: null, // RADIANS
     result: null, // INDEX
-    spinning: false
-  }
+    spinning: false,
+  };
 
   refWheel = createRef();
 
   colorSymbol = (color) => {
-    const white = '#FFFFFF';
-    const black = '#000000';
+    const white = "#FFFFFF";
+    const black = "#000000";
 
     if (color === white) {
       return black;
     }
 
     return white;
-  }
+  };
 
   componentDidMount() {
     // generate canvas wheel on load
@@ -56,7 +56,7 @@ class Winwheel extends Component {
     let numOptions = this.state.list.length;
     let arcSize = (2 * Math.PI) / numOptions;
     this.setState({
-      angle: arcSize
+      angle: arcSize,
     });
 
     // get index of starting position of selector
@@ -96,7 +96,7 @@ class Winwheel extends Component {
 
     this.setState({
       top: topSpot - 1,
-      offset: degreesOff
+      offset: degreesOff,
     });
   };
 
@@ -133,8 +133,8 @@ class Winwheel extends Component {
   }
 
   getColor(index) {
-    const white = '#FFFFFF';
-    const black = '#000000';
+    const white = "#FFFFFF";
+    const black = "#000000";
 
     if (index % 2) {
       return white;
@@ -150,7 +150,7 @@ class Winwheel extends Component {
     this.setState({
       rotate: randomSpin,
       easeOut: 2,
-      spinning: true
+      spinning: true,
     });
 
     // calcalute result after wheel stops spinning
@@ -160,8 +160,8 @@ class Winwheel extends Component {
   };
 
   getResult = (spin) => {
-
-    console.log(spin)
+    const { sendResult } = this.props;
+    console.log(spin);
     // find net rotation and add to offset angle
     // repeat substraction of inner angle amount from total distance traversed
     // use count as an index to find value of result from state list
@@ -183,19 +183,22 @@ class Winwheel extends Component {
     }
 
     // set state variable to display result
+    sendResult && sendResult(result);
     this.setState({
       net: netRotation,
-      result: result
+      result: result,
     });
   };
 
   reset = () => {
+    const { sendResult } = this.props;
     // reset wheel and result
+    sendResult && sendResult(null);
     this.setState({
       rotate: 0,
       easeOut: 0,
       result: null,
-      spinning: false
+      spinning: false,
     });
   };
 
@@ -204,8 +207,8 @@ class Winwheel extends Component {
       <div className={Style.wrapper}>
         <div className={Style.arrow}>
           <div className={Style.wrArrow}>
-            <div className={Style.stick}/>
-            <div className={Style.triangle}/>
+            <div className={Style.stick} />
+            <div className={Style.triangle} />
           </div>
         </div>
         <canvas
@@ -214,10 +217,8 @@ class Winwheel extends Component {
           width="500"
           height="500"
           style={{
-              transform: `rotate(${this.state.rotate}deg)`,
-              transition: `-webkit-transform ${
-              this.state.easeOut
-              }s ease-out`
+            transform: `rotate(${this.state.rotate}deg)`,
+            transition: `-webkit-transform ${this.state.easeOut}s ease-out`,
           }}
         />
 
@@ -225,17 +226,17 @@ class Winwheel extends Component {
           spin
         </button> */}
 
-        {this.state.spinning ?
+        {this.state.spinning ? (
           <button type="button" className={Style.reset} onClick={this.reset}>
             reset
           </button>
-          :
+        ) : (
           <button type="button" className={Style.spin} onClick={this.spin}>
-              spin
+            spin
           </button>
-        }
+        )}
       </div>
-    )
+    );
   }
 }
 

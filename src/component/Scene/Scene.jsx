@@ -17,6 +17,19 @@ const phases = {
   END: "end",
 };
 
+const RandomedCharacter = (props) => {
+  const rnd = Math.random() * 10;
+  let _bg;
+
+  if (rnd < 3) _bg = bg;
+
+  if (rnd < 7 && rnd >= 3) _bg = bg_rabbit;
+
+  if (rnd < 10 && rnd >= 7) _bg = bg_egg;
+
+  return <Character {...props} bg={_bg} />;
+};
+
 class Scene extends Component {
   constructor(props) {
     super(props);
@@ -50,19 +63,19 @@ class Scene extends Component {
           transitionTime={0.2}
           isAnimated={this.state.phase === phases.KICK}
         />
-        <Character
-          posX={-300}
-          posY={100}
-          posEndX={500}
-          posEndY={500}
-          width={300}
-          height={300}
-          bg={bg_rabbit}
-          transitionTime={3}
-          noBack
-          isAnimated={this.state.phase === phases.END}
-        />
-        )
+        {this.state.phase === phases.END && (
+          <RandomedCharacter
+            posX={300}
+            posY={100}
+            posEndX={500}
+            posEndY={500}
+            width={300}
+            height={300}
+            transitionTime={3}
+            noBack
+            isAnimated={this.state.phase === phases.END}
+          />
+        )}
         <Character posX={400} posY={700} width={300} height={300} bg={bg} />
       </div>
     );
