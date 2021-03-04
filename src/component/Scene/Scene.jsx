@@ -10,6 +10,7 @@ import bg from "../../img/якубович.jpg";
 import bg_rabbit from "../../img/заяц.jpg";
 
 import bg_egg from "../../img/pngegg.png";
+import Wall from "../Wall/Wall";
 
 const phases = {
   START: "start",
@@ -50,6 +51,7 @@ class Scene extends Component {
   render() {
     return (
       <div className={Style.scene}>
+        <Wall />
         <Winwheel sendResult={this.sendResult} />
         <Character posX={100} posY={100} width={300} height={300} bg={bg_egg} />
         <Character
