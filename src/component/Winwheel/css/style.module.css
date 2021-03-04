@@ -14,8 +14,8 @@ button {
 }
 
 
-#spin,
-#reset {
+.spin,
+.reset {
   position: absolute;
   bottom: 0;
   left: 50%;
@@ -23,14 +23,14 @@ button {
   transform: translateX(-50%);
 }
 
-#spin:hover {
+.spin:hover {
   color: rgb(0, 180, 120);
 
   border-color: rgb(0, 180, 120);
 }
 
-#spin:focus,
-#reset:focus {
+.spin:focus,
+.reset:focus {
   outline: none;
 }
 
@@ -40,7 +40,7 @@ button {
   right: 35vw;
 } */
 
-#reset:hover {
+.reset:hover {
   color: red;
 
   border-color: red;
@@ -48,45 +48,56 @@ button {
 
 
 
-#readout {
+.readout {
   position: absolute;
   bottom: 7vh;
   left: 35vw;
 }
 
 
-#selector {
+.arrow {
   position: absolute;
-  top: 0;
+  top: 150px;
   left: 50%;
   z-index: 3;
-  width: 10px;
-  height: 250px;
+
+  width: 4px;
+  height: 100px;
+
   transform: translateX(-50%);
 }
 
-.arrow {
+.wrArrow {
   position: relative;
+
   width: 100%;
   height: 100%;
 }
 
-.arrow::after {
-  content: '';
+.stick {
   position: absolute;
+
   width: 100%;
   height: 100%;
-  background: red;
+
+  background-color: #f2b71d;
 }
 
-#result {
+.triangle {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+
+  width: 14px;
+  height: 20px;
+
+  background-color: #f2b71d;
+  transform: translateX(-50%);
+
+  clip-path: polygon(50% 0%, 10% 100%, 90% 100%);
+}
+
+.result {
   font-size: 50px;
   color: rgb(0, 180, 120);
-}
-
-input {
-  font-size: 16px;
-
-  border: none;
-  border-bottom: 1px solid black;
 }
