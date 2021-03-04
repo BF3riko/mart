@@ -1,7 +1,7 @@
 .wrapper {
   position: relative;
   z-index: 100;
-  width: 675px;
+  width: 625px;
   display: flex;
   flex-wrap: wrap;
   margin: 0 auto;
