@@ -11,6 +11,9 @@ const Character = ({
   height,
   bg,
   isAnimated,
+  transitionTime = 0.5,
+  noBack,
+  children,
 }) => {
   const [pos, setPos] = useState({ left: posX, top: posY });
 
@@ -22,8 +25,10 @@ const Character = ({
 
       width: `${width}px`,
       height: `${height}px`,
+
+      transition: `${transitionTime}s`,
     }),
-    [bg, width, height, pos]
+    [bg, width, height, pos, transitionTime]
   );
 
   useEffect(() => {
@@ -33,12 +38,12 @@ const Character = ({
   }, [posEndX, posEndY, isAnimated]);
 
   const onTransitionEnd = () => {
-    setPos({ left: posX, top: posY });
+    !noBack && setPos({ left: posX, top: posY });
   };
 
   return (
     <div className={character} style={style} onTransitionEnd={onTransitionEnd}>
-      p
+      {children}
     </div>
   );
 };

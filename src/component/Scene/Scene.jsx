@@ -20,12 +20,16 @@ const phases = {
 class Scene extends Component {
   constructor(props) {
     super(props);
-    this.state = { phase: "first" };
+    this.state = { phase: phases.START };
   }
 
   sendResult = (result) => {
     if (result) {
       this.setState({ result, phase: phases.KICK });
+
+      setTimeout(() => {
+        this.setState({ result, phase: phases.END });
+      }, 2000);
     } else {
       this.setState({ result, phase: phases.START });
     }
@@ -43,8 +47,22 @@ class Scene extends Component {
           width={300}
           height={300}
           bg={bg_rabbit}
+          transitionTime={0.2}
           isAnimated={this.state.phase === phases.KICK}
         />
+        <Character
+          posX={-300}
+          posY={100}
+          posEndX={500}
+          posEndY={500}
+          width={300}
+          height={300}
+          bg={bg_rabbit}
+          transitionTime={3}
+          noBack
+          isAnimated={this.state.phase === phases.END}
+        />
+        )
         <Character posX={400} posY={700} width={300} height={300} bg={bg} />
       </div>
     );
