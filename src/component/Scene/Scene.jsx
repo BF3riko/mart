@@ -5,6 +5,7 @@ import Character from "../Character";
 
 import Wall from "../Wall/"; //Табло
 import Ceiling from "../Ceiling"; //Потолок
+import Window from '../Window'; //Окно справа в углу
 
 import Style from "./css/style.module.css";
 
@@ -88,6 +89,7 @@ class Scene extends Component {
 
         <Character posX={400} posY={700} width={300} height={300} bg={bg} />
         <Floor />
+        <Window />
       </div>
     );
   }
