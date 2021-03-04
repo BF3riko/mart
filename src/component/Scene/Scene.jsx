@@ -48,7 +48,7 @@ class Scene extends Component {
       this.winwheelRef.current.pushToWin();
 
       setTimeout(() => {
-        //this.setState({ result, phase: phases.END });
+        this.setState({ result, phase: phases.END });
       }, 2000);
 
       this.setState({ result, phase: phases.START });
@@ -72,7 +72,7 @@ class Scene extends Component {
         <Character
           posX={45}
           posY={20}
-          posEndX={30}
+          posEndX={42}
           posEndY={20}
           width={300}
           height={500}

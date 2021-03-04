@@ -140,10 +140,6 @@ class Winwheel extends Component {
       ctx.rotate(angle - arc / 2 + Math.PI / 2);
 
       ctx.drawImage(img, -img.width / 2, -y / 6);
-      //ctx.fillText(imgUrl, -ctx.measureText(imgUrl).width / 2, 0);
-
-      ctx.dr;
-
       ctx.restore();
     };
     img.src = imgUrl;
