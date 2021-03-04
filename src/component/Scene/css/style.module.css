@@ -2,5 +2,15 @@
   position: relative;
 
   height: 100vh;
-  background: linear-gradient(0deg, #7181AC, #7181AC), #7181AC;;
+  background: linear-gradient(0deg, #7181ac, #7181ac), #7181ac;
+}
+
+.winwheel {
+  position: absolute;
+  z-index: 10;
+  transform: translateY(-50%);
+  width: 700px;
+  height: 700px;
+  top: 50%;
+  left: 20%;
 }

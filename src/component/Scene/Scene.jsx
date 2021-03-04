@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Winwheel from "../Winwheel";
+import Winwheel from "../Winwheel2";
 
 import Character from "../Character";
 
@@ -15,7 +15,6 @@ import bg_rabbit from "../../img/заяц.jpg";
 import bg_egg from "../../img/pngegg.png";
 import Side from "../Side";
 import Floor from "../Floor";
-
 
 const phases = {
   START: "start",
@@ -40,15 +39,19 @@ class Scene extends Component {
   constructor(props) {
     super(props);
     this.state = { phase: phases.START };
+    this.winwheelRef = React.createRef();
   }
 
   sendResult = (result) => {
     if (result) {
       this.setState({ result, phase: phases.KICK });
+      this.winwheelRef.current.pushToWin();
 
       setTimeout(() => {
-        this.setState({ result, phase: phases.END });
+        //this.setState({ result, phase: phases.END });
       }, 2000);
+
+      this.setState({ result, phase: phases.START });
     } else {
       this.setState({ result, phase: phases.START });
     }
@@ -57,10 +60,14 @@ class Scene extends Component {
     return (
       <div className={Style.scene}>
         <Side />
-        <Side second={true}/>
+        <Side second={true} />
         <Ceiling />
         <Wall />
-        <Winwheel sendResult={this.sendResult} />
+        <Winwheel
+          ref={this.winwheelRef}
+          sendResult={this.sendResult}
+          className={Style.winwheel}
+        />
         <Character posX={100} posY={100} width={300} height={300} bg={bg_egg} />
         <Character
           posX={900}
