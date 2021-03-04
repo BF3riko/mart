@@ -1,5 +1,7 @@
 .wrapper {
   position: relative;
+  top: 150px;
+  left: 300px;
 
   width: 500px;
   height: 500px;
@@ -34,11 +36,6 @@ button {
   outline: none;
 }
 
-/* #reset {
-  position: absolute;
-  bottom: 20vh;
-  right: 35vw;
-} */
 
 .reset:hover {
   color: red;
