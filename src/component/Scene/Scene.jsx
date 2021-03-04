@@ -63,17 +63,12 @@ class Scene extends Component {
         <Side second={true} />
         <Ceiling />
         <Wall />
-<<<<<<< HEAD
         <Winwheel
           ref={this.winwheelRef}
           sendResult={this.sendResult}
           className={Style.winwheel}
         />
         <Character posX={5} posY={20} width={300} height={550} bg={bg_egg} />
-=======
-        <Winwheel sendResult={this.sendResult} />
-        <Character posX={5} posY={20} width={300} height={550} bg={bg_egg} />
->>>>>>> 5b469d6f3da47768d8e3dece577f723cd2c3ad95
         <Character
           posX={45}
           posY={20}
