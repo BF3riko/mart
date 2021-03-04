@@ -9,6 +9,7 @@ RUN npm install
 
 # Build app
 COPY . ./
+
 CMD ["npm", "start"]
 
 # # New clear docker
