@@ -1,5 +1,7 @@
 .wrapper {
   position: relative;
+  top: 150px;
+  left: 300px;
 
   width: 500px;
   height: 500px;
@@ -12,7 +14,6 @@ button {
   border: 1px solid black;
   border-radius: 5px;
 }
-
 
 #spin,
 #reset {
@@ -46,14 +47,11 @@ button {
   border-color: red;
 }
 
-
-
 #readout {
   position: absolute;
   bottom: 7vh;
   left: 35vw;
 }
-
 
 #selector {
   position: absolute;
@@ -72,7 +70,7 @@ button {
 }
 
 .arrow::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 100%;
   height: 100%;
