@@ -1,10 +1,10 @@
 import './App.css';
+import Winwheel from './component/Winwheel';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-      </header>
+      <Winwheel />
     </div>
   );
 }
