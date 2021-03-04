@@ -1,10 +1,10 @@
-FROM node:15-alpine AS builder
+FROM node:14-alpine AS builder
 WORKDIR /app
 
 # Install app dependencies
 COPY package.json ./
 COPY package-lock.json ./
-RUN npm ci
+RUN npm install
 
 # Build app
 COPY . ./
