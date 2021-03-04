@@ -179,7 +179,9 @@ class Winwheel extends Component {
     render() {
         return (
             <div className="wrapper">
-                <span id="selector">&#9660;</span>
+                <div id="selector">
+                    <div class="arrow" />
+                </div>
                 <canvas
                 id="wheel"
                 width="500"

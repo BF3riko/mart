@@ -1,10 +1,10 @@
 import './App.css';
-import Winwheel from './component/Winwheel';
+import Scene from './component/Scene';
 
 function App() {
   return (
     <div className="App">
-      <Winwheel />
+      <Scene />
     </div>
   );
 }
