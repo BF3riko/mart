@@ -204,37 +204,39 @@ class Winwheel extends Component {
 
   render() {
     return (
-      <div className={Style.wrapper}>
-        <div className={Style.arrow}>
-          <div className={Style.wrArrow}>
-            <div className={Style.stick} />
-            <div className={Style.triangle} />
+      <div className={Style.container}>
+        <div className={Style.wrapper}>
+          <div className={Style.arrow}>
+            <div className={Style.wrArrow}>
+              <div className={Style.stick} />
+              <div className={Style.triangle} />
+            </div>
           </div>
-        </div>
-        <canvas
-          className={Style.wheel}
-          ref={this.refWheel}
-          width="500"
-          height="500"
-          style={{
-            transform: `rotate(${this.state.rotate}deg)`,
-            transition: `-webkit-transform ${this.state.easeOut}s ease-out`,
-          }}
-        />
+          <canvas
+            className={Style.wheel}
+            ref={this.refWheel}
+            width="500"
+            height="500"
+            style={{
+              transform: `rotate(${this.state.rotate}deg)`,
+              transition: `-webkit-transform ${this.state.easeOut}s ease-out`,
+            }}
+          />
 
-        {/* <button type="button" className={Style.spin} onClick={this.spin}>
-          spin
-        </button> */}
-
-        {this.state.spinning ? (
-          <button type="button" className={Style.reset} onClick={this.reset}>
-            reset
-          </button>
-        ) : (
-          <button type="button" className={Style.spin} onClick={this.spin}>
+          {/* <button type="button" className={Style.spin} onClick={this.spin}>
             spin
-          </button>
-        )}
+          </button> */}
+
+          {this.state.spinning ? (
+            <button type="button" className={Style.reset} onClick={this.reset}>
+              reset
+            </button>
+          ) : (
+            <button type="button" className={Style.spin} onClick={this.spin}>
+              spin
+            </button>
+          )}
+        </div>
       </div>
     );
   }

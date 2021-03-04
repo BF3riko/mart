@@ -3,6 +3,9 @@ import Winwheel from "../Winwheel";
 
 import Character from "../Character";
 
+import Wall from "../Wall/"; //Табло
+import Ceiling from "../Ceiling"; //Потолок
+
 import Style from "./css/style.module.css";
 
 import bg from "../../img/якубович.jpg";
@@ -10,7 +13,9 @@ import bg from "../../img/якубович.jpg";
 import bg_rabbit from "../../img/заяц.jpg";
 
 import bg_egg from "../../img/pngegg.png";
-import Wall from "../Wall/Wall";
+import Side from "../Side";
+import Floor from "../Floor";
+
 
 const phases = {
   START: "start",
@@ -51,6 +56,9 @@ class Scene extends Component {
   render() {
     return (
       <div className={Style.scene}>
+        <Side />
+        <Side second={true}/>
+        <Ceiling />
         <Wall />
         <Winwheel sendResult={this.sendResult} />
         <Character posX={100} posY={100} width={300} height={300} bg={bg_egg} />
@@ -79,6 +87,7 @@ class Scene extends Component {
         />
 
         <Character posX={400} posY={700} width={300} height={300} bg={bg} />
+        <Floor />
       </div>
     );
   }

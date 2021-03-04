@@ -1,7 +1,15 @@
+.container {
+  position: absolute;
+  z-index: 10;
+  top: 50%;
+  left: 20%;
+  transform: translateY(-50%);
+  width: 500px;
+  height: 500px;
+}
+
 .wrapper {
   position: relative;
-  top: 150px;
-  left: 300px;
 
   width: 500px;
   height: 500px;

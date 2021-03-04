@@ -1,20 +1,25 @@
 .wrapper {
-  position: relative;
+  position: absolute;
+  top: 60px;
+  left: 50%;
   z-index: 100;
-  width: 625px;
+
   display: flex;
   flex-wrap: wrap;
-  margin: 0 auto;
+  width: 625px;
+
+  transform: translateX(-50%);
 }
 
 .square {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 25px;
   height: 25px;
+
   background-color: #c4c4c4;
   border: 1px solid #000000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .square > p {
