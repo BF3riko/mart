@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import cn from 'classnames';
 
 import Style from './css/style.module.css';
@@ -6,7 +6,10 @@ import Style from './css/style.module.css';
 class Card extends Component {
   state = {
     flip: this.props.flip ? this.props.flip : false,
+    usual: this.props.usual ? this.props.usual : false,
   }
+
+  refCard = createRef();
 
   handleFlipCard = () => {
     this.setState(state => ({
@@ -17,12 +20,13 @@ class Card extends Component {
 
   render() {
     const cardClasses = cn(Style.card, {
-      [Style.isFlipped]: this.state.flip,
+      [Style.isFlipped]: this.state.usual ? false : this.state.flip,
+      [Style.animated]: this.state.usual,
     })
 
     return (
       <div className={Style.scene} onClick={this.handleFlipCard}>
-        <div className={cardClasses}>
+        <div ref={this.refCard} className={cardClasses}>
           <div className={`${Style.cardFace} ${Style.cardFaceFront}`} ></div>
           <div className={`${Style.cardFace} ${Style.cardFaceBack}`} >
             <p>{this.props.letter}</p>

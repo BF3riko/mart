@@ -1,3 +1,13 @@
+@keyframes flipCard {
+  0% {
+    transform: rotateY(180deg);
+  }
+
+  100% {
+    transform: rotateY(0deg);
+  }
+}
+
 .wrapper {
   position: absolute;
   top: 60px;
@@ -34,6 +44,14 @@
 
   border: 1px solid #000000;
   perspective: 100px;
+}
+
+.wrapper .animated {
+  animation: flipCard 1s linear forwards;
+}
+
+.wrapper .animated:nth-child(2) {
+  animation-delay: 0.5s;
 }
 
 .card {
