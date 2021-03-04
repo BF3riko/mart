@@ -20,8 +20,8 @@ const Character = ({
   const style = useMemo(
     () => ({
       backgroundImage: `url("${bg}")`,
-      left: `${pos.left}px`,
-      top: `${pos.top}px`,
+      left: `${pos.left}%`,
+      top: `${pos.top}%`,
 
       width: `${width}px`,
       height: `${height}px`,
@@ -33,7 +33,7 @@ const Character = ({
 
   useEffect(() => {
     if (isAnimated) {
-      setPos({ left: posEndX, top: posEndY });
+      setPos({ left: `${posEndX}`, top: `${posEndY}` });
     }
   }, [posEndX, posEndY, isAnimated]);
 

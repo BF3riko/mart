@@ -3,6 +3,7 @@
 
   height: 100vh;
   background: linear-gradient(0deg, #7181ac, #7181ac), #7181ac;
+  overflow: hidden;
 }
 
 .winwheel {

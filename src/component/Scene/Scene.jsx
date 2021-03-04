@@ -5,14 +5,14 @@ import Character from "../Character";
 
 import Wall from "../Wall/"; //Табло
 import Ceiling from "../Ceiling"; //Потолок
+import Window from "../Window"; //Окно справа в углу
 
 import Style from "./css/style.module.css";
 
 import bg from "../../img/якубович.jpg";
+import bg_rabbit from "../../img/Ilgiz1.png";
+import bg_egg from "../../img/Ilgiz2.png";
 
-import bg_rabbit from "../../img/заяц.jpg";
-
-import bg_egg from "../../img/pngegg.png";
 import Side from "../Side";
 import Floor from "../Floor";
 
@@ -63,29 +63,34 @@ class Scene extends Component {
         <Side second={true} />
         <Ceiling />
         <Wall />
+<<<<<<< HEAD
         <Winwheel
           ref={this.winwheelRef}
           sendResult={this.sendResult}
           className={Style.winwheel}
         />
-        <Character posX={100} posY={100} width={300} height={300} bg={bg_egg} />
+        <Character posX={5} posY={20} width={300} height={550} bg={bg_egg} />
+=======
+        <Winwheel sendResult={this.sendResult} />
+        <Character posX={5} posY={20} width={300} height={550} bg={bg_egg} />
+>>>>>>> 5b469d6f3da47768d8e3dece577f723cd2c3ad95
         <Character
-          posX={900}
-          posY={100}
-          posEndX={800}
-          posEndY={100}
+          posX={45}
+          posY={20}
+          posEndX={30}
+          posEndY={20}
           width={300}
-          height={300}
+          height={500}
           bg={bg_rabbit}
           transitionTime={0.2}
           isAnimated={this.state.phase === phases.KICK}
         />
 
         <RandomedCharacter
-          posX={-300}
-          posY={100}
-          posEndX={500}
-          posEndY={500}
+          posX={100}
+          posY={10}
+          posEndX={40}
+          posEndY={50}
           width={300}
           height={300}
           transitionTime={3}
@@ -93,8 +98,8 @@ class Scene extends Component {
           isAnimated={this.state.phase === phases.END}
         />
 
-        <Character posX={400} posY={700} width={300} height={300} bg={bg} />
         <Floor />
+        <Window />
       </div>
     );
   }
