@@ -63,19 +63,19 @@ class Scene extends Component {
           transitionTime={0.2}
           isAnimated={this.state.phase === phases.KICK}
         />
-        {this.state.phase === phases.END && (
-          <RandomedCharacter
-            posX={300}
-            posY={100}
-            posEndX={500}
-            posEndY={500}
-            width={300}
-            height={300}
-            transitionTime={3}
-            noBack
-            isAnimated={this.state.phase === phases.END}
-          />
-        )}
+
+        <RandomedCharacter
+          posX={-300}
+          posY={100}
+          posEndX={500}
+          posEndY={500}
+          width={300}
+          height={300}
+          transitionTime={3}
+          noBack
+          isAnimated={this.state.phase === phases.END}
+        />
+
         <Character posX={400} posY={700} width={300} height={300} bg={bg} />
       </div>
     );
