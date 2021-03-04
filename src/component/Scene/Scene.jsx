@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Winwheel from "../Winwheel";
+import Winwheel from "../Winwheel2";
 
 import Character from "../Character";
 
@@ -39,15 +39,19 @@ class Scene extends Component {
   constructor(props) {
     super(props);
     this.state = { phase: phases.START };
+    this.winwheelRef = React.createRef();
   }
 
   sendResult = (result) => {
     if (result) {
       this.setState({ result, phase: phases.KICK });
+      this.winwheelRef.current.pushToWin();
 
       setTimeout(() => {
         this.setState({ result, phase: phases.END });
       }, 2000);
+
+      this.setState({ result, phase: phases.START });
     } else {
       this.setState({ result, phase: phases.START });
     }
@@ -59,12 +63,16 @@ class Scene extends Component {
         <Side second={true} />
         <Ceiling />
         <Wall />
-        <Winwheel sendResult={this.sendResult} />
+        <Winwheel
+          ref={this.winwheelRef}
+          sendResult={this.sendResult}
+          className={Style.winwheel}
+        />
         <Character posX={5} posY={20} width={300} height={550} bg={bg_egg} />
         <Character
           posX={45}
           posY={20}
-          posEndX={30}
+          posEndX={42}
           posEndY={20}
           width={300}
           height={500}

@@ -3,6 +3,15 @@
 
   height: 100vh;
   background: linear-gradient(0deg, #7181ac, #7181ac), #7181ac;
-
   overflow: hidden;
+}
+
+.winwheel {
+  position: absolute;
+  z-index: 10;
+  transform: translateY(-50%);
+  width: 800px;
+  height: 800px;
+  top: 60%;
+  left: 14%;
 }
