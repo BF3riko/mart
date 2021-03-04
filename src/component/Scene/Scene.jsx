@@ -50,10 +50,6 @@ class RandomedCharacter extends Component {
     }
   };
 
-  hideCharecter = () => {
-    this.selectCharacter();
-  };
-
   render() {
     return <Character {...this.props} bg={this._bg} />;
   }
@@ -102,7 +98,9 @@ class Scene extends Component {
         text: "Крутите барабан!",
       });
 
-      this.winCharecterRef.current.hideCharecter();
+      setTimeout(() => {
+        this.winCharecterRef.current.selectCharacter();
+      }, 10);
 
       e.preventDefault();
       return false;
@@ -158,12 +156,12 @@ class Scene extends Component {
           ref={this.winCharecterRef}
           posX={100}
           posY={15}
-          posEndX={40}
+          posEndX={50}
           posEndY={35}
           width={300}
           height={300}
           scaleEnd={2.5}
-          transitionTime={this.state.phase === phases.END ? 3 : 0}
+          transitionTime={this.state.phase === phases.END ? 5 : 0}
           noBack
           isAnimated={this.state.phase === phases.END}
         />

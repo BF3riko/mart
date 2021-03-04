@@ -16,7 +16,6 @@ const Character = ({
   noBack,
   children,
 }) => {
-  const [bgImg, setBgImg] = useState(bg);
   const [pos, setPos] = useState({
     left: posX,
     top: posY,
