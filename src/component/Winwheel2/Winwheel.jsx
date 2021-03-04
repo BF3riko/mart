@@ -46,6 +46,10 @@ class Winwheel extends Component {
 
   refWheel = createRef();
 
+  constructor(props) {
+    super(props);
+  }
+
   colorSymbol = (color) => {
     const white = "#FFFFFF";
     const black = "#000000";
@@ -157,27 +161,29 @@ class Winwheel extends Component {
   }
 
   spin = () => {
-    // set random spin degree and ease out time
-    // set state variables to initiate animation
-    let randomSpin = Math.floor(Math.random() * 900) + 500;
-    this.setState({
-      rotate: randomSpin,
-      easeOut: 2,
-      spinning: true,
-    });
+    if (this.props.isEnabled) {
+      // set random spin degree and ease out time
+      // set state variables to initiate animation
+      let randomSpin = Math.floor(Math.random() * 900) + 500;
+      this.setState({
+        rotate: randomSpin,
+        easeOut: 2,
+        spinning: true,
+      });
 
-    // calcalute result after wheel stops spinning
-    setTimeout(() => {
-      this.getResult(randomSpin);
-    }, 2000);
+      // calcalute result after wheel stops spinning
+      setTimeout(() => {
+        this.getResult(randomSpin);
+      }, 2000);
+    }
   };
 
   pushToWin = () => {
     let targetAngle = 12;
     let angle = Math.round(this.state.rotate / 360) * 360 + targetAngle;
 
-    console.log("cur: " + this.state.rotate);
-    console.log("tur: " + angle);
+    //console.log("cur: " + this.state.rotate);
+    //console.log("tur: " + angle);
 
     this.setState({
       rotate: angle,
@@ -188,7 +194,7 @@ class Winwheel extends Component {
 
   getResult = (spin) => {
     const { sendResult } = this.props;
-    console.log(spin);
+    //console.log(spin);
     // find net rotation and add to offset angle
     // repeat substraction of inner angle amount from total distance traversed
     // use count as an index to find value of result from state list

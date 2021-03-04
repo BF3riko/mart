@@ -10,8 +10,8 @@ import Window from "../Window"; //Окно справа в углу
 import Style from "./css/style.module.css";
 
 import bg from "../../img/якубович.jpg";
-import bg_rabbit from "../../img/Ilgiz1.png";
-import bg_egg from "../../img/Ilgiz2.png";
+import bg_rabbit from "../../img/Ilgiz.png";
+import bg_egg from "../../img/Kuklev.png";
 
 import Side from "../Side";
 import Floor from "../Floor";
@@ -22,24 +22,52 @@ const phases = {
   END: "end",
 };
 
-const RandomedCharacter = (props) => {
-  const rnd = Math.random() * 10;
-  let _bg;
+class RandomedCharacter extends Component {
+  constructor(props) {
+    super(props);
+    this.selectCharacter();
+  }
 
-  if (rnd < 3) _bg = bg;
+  selectCharacter = () => {
+    let rnd = Math.round(Math.random() * 3);
+    switch (rnd) {
+      case 0:
+        this._bg = bg;
+        break;
 
-  if (rnd < 7 && rnd >= 3) _bg = bg_rabbit;
+      case 1:
+        this._bg = bg_rabbit;
+        break;
 
-  if (rnd < 10 && rnd >= 7) _bg = bg_egg;
+      case 2:
+        this._bg = bg_egg;
+        break;
 
-  return <Character {...props} bg={_bg} />;
-};
+      case 3:
+      default:
+        this._bg = bg_rabbit;
+        break;
+    }
+  };
+
+  hideCharecter = () => {
+    this.selectCharacter();
+  };
+
+  render() {
+    return <Character {...this.props} bg={this._bg} />;
+  }
+}
 
 class Scene extends Component {
   constructor(props) {
     super(props);
-    this.state = { phase: phases.START };
+    this.state = {
+      phase: phases.START,
+      text: "Крутите барабан!",
+    };
     this.winwheelRef = React.createRef();
+    this.winCharecterRef = React.createRef();
   }
 
   sendResult = (result) => {
@@ -48,17 +76,42 @@ class Scene extends Component {
       this.winwheelRef.current.pushToWin();
 
       setTimeout(() => {
-        this.setState({ result, phase: phases.END });
-      }, 2000);
+        this.setState({
+          result,
+          phase: phases.END,
+          text: "Сектор ПРИЗ!",
+        });
 
-      this.setState({ result, phase: phases.START });
+        setTimeout(() => {
+          this.setState({
+            text: "Сыграем ещё раз?",
+          });
+        }, 10000);
+      }, 2000);
     } else {
       this.setState({ result, phase: phases.START });
     }
+
+    this.setState({ result, phase: phases.START });
   };
+
+  refresh = (e) => {
+    if (this.state.phase === phases.END) {
+      this.setState({
+        phase: phases.START,
+        text: "Крутите барабан!",
+      });
+
+      this.winCharecterRef.current.hideCharecter();
+
+      e.preventDefault();
+      return false;
+    }
+  };
+
   render() {
     return (
-      <div className={Style.scene}>
+      <div className={Style.scene} onClick={this.refresh}>
         <Side />
         <Side second={true} />
         <Ceiling />
@@ -66,35 +119,57 @@ class Scene extends Component {
         <Winwheel
           ref={this.winwheelRef}
           sendResult={this.sendResult}
+          isEnabled={this.state.phase === phases.START}
           className={Style.winwheel}
         />
-        <Character posX={5} posY={20} width={300} height={550} bg={bg_egg} />
+
+        <Character
+          posX={25}
+          posY={5}
+          width={180}
+          height={300}
+          scaleEnd={1}
+          bg={bg_rabbit}
+        />
+
+        <Character
+          posX={6}
+          posY={20}
+          width={350}
+          height={600}
+          scaleEnd={1}
+          bg={bg_egg}
+        />
+
         <Character
           posX={45}
           posY={20}
           posEndX={42}
           posEndY={20}
-          width={300}
+          width={400}
           height={500}
+          scaleEnd={1}
           bg={bg_rabbit}
           transitionTime={0.2}
           isAnimated={this.state.phase === phases.KICK}
         />
 
         <RandomedCharacter
+          ref={this.winCharecterRef}
           posX={100}
-          posY={10}
+          posY={15}
           posEndX={40}
-          posEndY={50}
+          posEndY={35}
           width={300}
           height={300}
-          transitionTime={3}
+          scaleEnd={2.5}
+          transitionTime={this.state.phase === phases.END ? 3 : 0}
           noBack
           isAnimated={this.state.phase === phases.END}
         />
 
         <Floor />
-        <Window />
+        <Window text={this.state.text} />
       </div>
     );
   }

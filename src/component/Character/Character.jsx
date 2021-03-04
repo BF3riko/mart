@@ -9,31 +9,51 @@ const Character = ({
   posEndY,
   width,
   height,
+  scaleEnd,
   bg,
   isAnimated,
   transitionTime = 0.5,
   noBack,
   children,
 }) => {
-  const [pos, setPos] = useState({ left: posX, top: posY });
+  const [bgImg, setBgImg] = useState(bg);
+  const [pos, setPos] = useState({
+    left: posX,
+    top: posY,
+    height: height,
+    width: width,
+  });
 
   const style = useMemo(
     () => ({
       backgroundImage: `url("${bg}")`,
+      backgroundSize: `contain`,
       left: `${pos.left}%`,
       top: `${pos.top}%`,
 
-      width: `${width}px`,
-      height: `${height}px`,
+      width: `${pos.width}px`,
+      height: `${pos.height}px`,
 
       transition: `${transitionTime}s`,
     }),
-    [bg, width, height, pos, transitionTime]
+    [bg, pos, transitionTime]
   );
 
   useEffect(() => {
     if (isAnimated) {
-      setPos({ left: `${posEndX}`, top: `${posEndY}` });
+      setPos({
+        left: `${posEndX}`,
+        top: `${posEndY}`,
+        height: `${height * scaleEnd}`,
+        width: `${width * scaleEnd}`,
+      });
+    } else if (noBack) {
+      setPos({
+        left: `${posX}`,
+        top: `${posY}`,
+        height: `${height}`,
+        width: `${width}`,
+      });
     }
   }, [posEndX, posEndY, isAnimated]);
 
