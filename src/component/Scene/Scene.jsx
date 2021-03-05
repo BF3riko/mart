@@ -133,7 +133,7 @@ class Scene extends Component {
               text: "Сыграем ещё раз?",
             });
           }
-        }, 10000);
+        }, 9000);
       }, 2000);
     } else {
       this.setState({ result, phase: phases.START });
