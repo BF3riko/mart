@@ -12,9 +12,15 @@ import ImgPrize from '../../img/card.png';
 
 import Style from "./css/style.module.css";
 
-import bg from "../../img/якубович.jpg";
-import bg_rabbit from "../../img/Ilgiz1.png";
-import bg_egg from "../../img/Ilgiz2.png";
+import bg_test from "../../img/якубович.jpg";
+import bg_ilgiz from "../../img/Ilgiz.png";
+import bg_kuklev from "../../img/Kuklev.png";
+import ch_fedor from "../../img/Fedor.png";
+
+import ch_disk from "../../img/disk.png";
+import ch_papers from "../../img/papers.png";
+import ch_money from "../../img/money.png";
+import ch_money2 from "../../img/money2.png";
 
 import Side from "../Side";
 import Floor from "../Floor";
@@ -25,18 +31,38 @@ const phases = {
   END: "end",
 };
 
-const RandomedCharacter = (props) => {
-  const rnd = Math.random() * 10;
-  let _bg;
+class RandomedCharacter extends Component {
+  constructor(props) {
+    super(props);
+    this.selectCharacter();
+  }
 
-  if (rnd < 3) _bg = bg;
+  selectCharacter = () => {
+    let rnd = Math.round(Math.random() * 3);
+    switch (rnd) {
+      case 0:
+        this._bg = bg_test;
+        break;
 
-  if (rnd < 7 && rnd >= 3) _bg = bg_rabbit;
+      case 1:
+        this._bg = bg_ilgiz;
+        break;
 
-  if (rnd < 10 && rnd >= 7) _bg = bg_egg;
+      case 2:
+        this._bg = bg_kuklev;
+        break;
 
-  return <Character {...props} bg={_bg} />;
-};
+      case 3:
+      default:
+        this._bg = bg_ilgiz;
+        break;
+    }
+  };
+
+  render() {
+    return <Character {...this.props} bg={this._bg} />;
+  }
+}
 
 class Scene extends Component {
   constructor(props) {
@@ -147,6 +173,7 @@ class Scene extends Component {
         <Winwheel
           ref={this.winwheelRef}
           sendResult={this.sendResult}
+          isEnabled={this.state.phase === phases.START}
           className={Style.winwheel}
         />
         <Character
@@ -211,7 +238,7 @@ class Scene extends Component {
           noBack
           isAnimated={this.state.phase === phases.END}
         />
-        <Window />
+        <Window text={this.state.text}/>
         <Character
           posX={75}
           posY={90}

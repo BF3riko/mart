@@ -3,15 +3,17 @@ import React, { Component, createRef } from "react";
 import Style from "./css/style.module.css";
 
 import wheel_figa from "../../img/wheel_figa.svg";
-import wheel_5 from "../../img/wheel_5.svg";
-import wheel_10 from "../../img/wheel_10.svg";
-import wheel_15 from "../../img/wheel_15.svg";
-import wheel_20 from "../../img/wheel_20.svg";
-import wheel_25 from "../../img/wheel_25.svg";
-import wheel_x2 from "../../img/wheel_x2.svg";
-import wheel_x4 from "../../img/wheel_x4.svg";
-import wheel_plus from "../../img/wheel_plus.svg";
-import wheel_win from "../../img/wheel_win.svg";
+import wheel_5 from "../../img/wheel_5.png";
+import wheel_10 from "../../img/wheel_10.png";
+import wheel_15 from "../../img/wheel_15.png";
+import wheel_20 from "../../img/wheel_20.png";
+import wheel_25 from "../../img/wheel_25.png";
+import wheel_x2 from "../../img/wheel_x2.png";
+import wheel_x4 from "../../img/wheel_x4.png";
+import wheel_plus from "../../img/wheel_plus.png";
+import wheel_win from "../../img/wheel_win.png";
+
+import winwheel_bottom from "../../img/winwheel_bottom.svg";
 
 class Winwheel extends Component {
   state = {
@@ -45,6 +47,10 @@ class Winwheel extends Component {
   };
 
   refWheel = createRef();
+
+  constructor(props) {
+    super(props);
+  }
 
   colorSymbol = (color) => {
     const white = "#FFFFFF";
@@ -157,27 +163,29 @@ class Winwheel extends Component {
   }
 
   spin = () => {
-    // set random spin degree and ease out time
-    // set state variables to initiate animation
-    let randomSpin = Math.floor(Math.random() * 900) + 500;
-    this.setState({
-      rotate: randomSpin,
-      easeOut: 2,
-      spinning: true,
-    });
+    if (this.props.isEnabled) {
+      // set random spin degree and ease out time
+      // set state variables to initiate animation
+      let randomSpin = Math.floor(Math.random() * 900) + 500;
+      this.setState({
+        rotate: randomSpin,
+        easeOut: 2,
+        spinning: true,
+      });
 
-    // calcalute result after wheel stops spinning
-    setTimeout(() => {
-      this.getResult(randomSpin);
-    }, 2000);
+      // calcalute result after wheel stops spinning
+      setTimeout(() => {
+        this.getResult(randomSpin);
+      }, 2000);
+    }
   };
 
   pushToWin = () => {
     let targetAngle = 12;
     let angle = Math.round(this.state.rotate / 360) * 360 + targetAngle;
 
-    console.log("cur: " + this.state.rotate);
-    console.log("tur: " + angle);
+    //console.log("cur: " + this.state.rotate);
+    //console.log("tur: " + angle);
 
     this.setState({
       rotate: angle,
@@ -188,7 +196,7 @@ class Winwheel extends Component {
 
   getResult = (spin) => {
     const { sendResult } = this.props;
-    console.log(spin);
+    //console.log(spin);
     // find net rotation and add to offset angle
     // repeat substraction of inner angle amount from total distance traversed
     // use count as an index to find value of result from state list
@@ -230,7 +238,7 @@ class Winwheel extends Component {
 
   render() {
     return (
-      <div className={this.props.className}>
+      <div className={this.props.className} onClick={this.spin}>
         <div className={Style.wrapper}>
           <div className={Style.arrow}>
             <div className={Style.wrArrow}>
@@ -243,13 +251,16 @@ class Winwheel extends Component {
             ref={this.refWheel}
             width="500"
             height="500"
-            onClick={this.spin}
             style={{
               transform: `rotate(${this.state.rotate}deg)`,
               transition: `-webkit-transform ${this.state.easeOut}s ease-out`,
             }}
           />
         </div>
+        <div
+          className={Style.bottom}
+          style={{ backgroundImage: `url("${winwheel_bottom}")` }}
+        ></div>
       </div>
     );
   }
