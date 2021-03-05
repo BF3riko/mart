@@ -127,10 +127,12 @@ class Scene extends Component {
         });
 
         setTimeout(() => {
-          this.setState({
-            ...this.state,
-            text: "Сыграем ещё раз?",
-          });
+          if (this.state.phase === phases.END) {
+            this.setState({
+              ...this.state,
+              text: "Сыграем ещё раз?",
+            });
+          }
         }, 10000);
       }, 2000);
     } else {
