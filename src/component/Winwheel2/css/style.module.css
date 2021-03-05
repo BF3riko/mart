@@ -95,3 +95,14 @@
   background-repeat: no-repeat;
   background-size: contain;
 }
+
+.centerDot {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  top: 100%;
+  left: 50%;
+  border-radius: 100%;
+  transform: translate(-50%, -50%);
+  background-color: black;
+}

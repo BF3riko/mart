@@ -245,6 +245,7 @@ class Winwheel extends Component {
               <div className={Style.stick} />
               <div className={Style.triangle} />
             </div>
+            <div className={Style.centerDot} />
           </div>
           <canvas
             className={Style.wheel}
