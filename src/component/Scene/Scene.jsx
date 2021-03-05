@@ -326,7 +326,7 @@ class Scene extends Component {
           noBack
           isAnimated={this.state.phase === phases.END}
         />
-        <Window text={this.state.text} zIndexWin={this.state.win ? 2000 : 12} big={true} />
+        <Window text={this.state.text} big={true} />
 
         <Character
           // posX={75}
