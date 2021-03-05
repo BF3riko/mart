@@ -130,9 +130,6 @@ class Scene extends Component {
           this.setState({
             ...this.state,
             text: "Сыграем ещё раз?",
-            spinSoundStatus: Sound.status.STOPPED,
-            winnerSoundStatus: Sound.status.STOPPED,
-            vseSoundStatus: Sound.status.STOPPED,
           });
         }, 10000);
       }, 2000);
