@@ -99,6 +99,18 @@ class Scene extends Component {
     this.refScene = createRef();
     this.refPrizeContainer = createRef();
     this.refPrize = createRef();
+
+    this.pharases = [
+      "Zum Fest",
+      "يمكننا التكرار",
+      "اجازة سعيدة",
+      "Veni Vidi Карта",
+      "Arbeiten",
+      "Wie geht's?",
+      "Доброго здоровья!",
+      "الجمال",
+      "Die Schönheit",
+    ];
   }
 
   beginSpin = () => {
@@ -128,12 +140,16 @@ class Scene extends Component {
 
         setTimeout(() => {
           if (this.state.phase === phases.END) {
+            let phrase = this.pharases[
+              Math.round(Math.random() * (this.pharases.length - 1))
+            ];
+
             this.setState({
               ...this.state,
-              text: "Сыграем ещё раз?",
+              text: phrase,
             });
           }
-        }, 9000);
+        }, 5000);
       }, 2000);
     } else {
       this.setState({ result, phase: phases.START });
