@@ -1,5 +1,5 @@
 import React, { Component, createRef } from "react";
-import useSound from "use-sound";
+import Sound from "react-sound";
 import cn from "classnames";
 
 import Winwheel from "../Winwheel2";
@@ -18,7 +18,7 @@ import bg_volkov from "../../img/Ilgiz.png";
 import bg_kondakov from "../../img/Kuklev.png";
 import bg_sirota from "../../img/Fedor.png";
 
-import prize_stockman from "../../img/card_stockman.png";
+import prize_stockman from "../../img/card_stockman.jpg";
 import prize_letual from "../../img/card_letual.png";
 import prize_ozon from "../../img/card_ozon.png";
 import prize_republic from "../../img/card_republic.png";
@@ -29,8 +29,12 @@ import ch_fedor from "../../img/Fedor.png";
 
 import ch_disk from "../../img/disk.png";
 import ch_papers from "../../img/papers.png";
-import ch_money from "../../img/money.png";
+//import ch_money from "../../img/money.png";
 import ch_money2 from "../../img/money2.png";
+
+import winnerSfx from "../../music/winner-of-tour.mp3";
+import vseSfx from "../../music/vse-vashe.mp3";
+import barabanSfx from "../../music/pole-chudes-baraban.mp3";
 
 import Side from "../Side";
 import Floor from "../Floor";
@@ -49,6 +53,9 @@ class RandomedCharacter extends Component {
 
   selectCharacter = () => {
     this.selectedCharacter = Math.round(Math.random() * 3);
+
+    console.log(this.selectedCharacter);
+
     switch (this.selectedCharacter) {
       case 0:
         this._bg = bg_tuboltcev;
@@ -82,6 +89,9 @@ class Scene extends Component {
       text: "Крутите барабан!",
       maxSizePrize: 500,
       win: false,
+      spinSoundStatus: Sound.status.STOPPED,
+      winnerSoundStatus: Sound.status.STOPPED,
+      vseSoundStatus: Sound.status.STOPPED,
     };
 
     this.winwheelRef = createRef();
@@ -90,6 +100,15 @@ class Scene extends Component {
     this.refPrizeContainer = createRef();
     this.refPrize = createRef();
   }
+
+  beginSpin = () => {
+    this.setState({
+      ...this.state,
+      spinSoundStatus: Sound.status.PLAYING,
+      winnerSoundStatus: Sound.status.STOPPED,
+      vseSoundStatus: Sound.status.STOPPED,
+    });
+  };
 
   sendResult = (result) => {
     if (result) {
@@ -101,6 +120,9 @@ class Scene extends Component {
           ...this.state,
           result,
           phase: phases.END,
+          spinSoundStatus: Sound.status.STOPPED,
+          winnerSoundStatus: Sound.status.PLAYING,
+          vseSoundStatus: Sound.status.STOPPED,
           text: "Сектор ПРИЗ!",
         });
 
@@ -108,6 +130,9 @@ class Scene extends Component {
           this.setState({
             ...this.state,
             text: "Сыграем ещё раз?",
+            spinSoundStatus: Sound.status.STOPPED,
+            winnerSoundStatus: Sound.status.STOPPED,
+            vseSoundStatus: Sound.status.STOPPED,
           });
         }, 10000);
       }, 2000);
@@ -123,6 +148,9 @@ class Scene extends Component {
       this.setState({
         ...this.state,
         win: true,
+        spinSoundStatus: Sound.status.STOPPED,
+        winnerSoundStatus: Sound.status.STOPPED,
+        vseSoundStatus: Sound.status.PLAYING,
       });
 
       setTimeout(() => {
@@ -130,6 +158,9 @@ class Scene extends Component {
           ...state,
           phase: phases.START,
           text: "Крутите барабан!",
+          spinSoundStatus: Sound.status.STOPPED,
+          winnerSoundStatus: Sound.status.STOPPED,
+          vseSoundStatus: Sound.status.STOPPED,
           win: false,
         }));
         this.winCharecterRef.current.selectCharacter();
@@ -152,7 +183,7 @@ class Scene extends Component {
     const maxLeft = gameSize.width - boxSize;
 
     let imgPrizeUrl;
-    switch (this.winCharecterRef.current) {
+    switch (this.winCharecterRef.current.selectedCharacter) {
       case 0:
         imgPrizeUrl = prize_stockman;
         break;
@@ -208,12 +239,10 @@ class Scene extends Component {
                 })
             : null}
         </div>
-
         <Side />
         <Side second={true} />
         <Ceiling />
         <Wall />
-
         <Floor />
         <Character
           // posX={28}
@@ -230,6 +259,7 @@ class Scene extends Component {
             <Winwheel
               ref={this.winwheelRef}
               sendResult={this.sendResult}
+              beginSpin={this.beginSpin}
               isEnabled={this.state.phase === phases.START}
               className={Style.winwheel}
               small={true}
@@ -308,6 +338,10 @@ class Scene extends Component {
           money={true}
           bigMoney={true}
         />
+
+        <Sound url={winnerSfx} playStatus={this.state.winnerSoundStatus} />
+        <Sound url={vseSfx} playStatus={this.state.vseSoundStatus} />
+        <Sound url={barabanSfx} playStatus={this.state.spinSoundStatus} />
       </div>
     );
   }

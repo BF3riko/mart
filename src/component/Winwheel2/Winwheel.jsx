@@ -162,6 +162,9 @@ class Winwheel extends Component {
 
   spin = () => {
     if (this.props.isEnabled) {
+      const { beginSpin } = this.props;
+      beginSpin && beginSpin();
+
       // set random spin degree and ease out time
       // set state variables to initiate animation
       let randomSpin = Math.floor(Math.random() * 900) + 500;

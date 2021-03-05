@@ -42,7 +42,13 @@
 @media (min-width: 1922px) {
   .side {
     width: 400px;
-    height: 700px;
+    height: 800px;
+  }
+
+  .logo {
+    width: 250px;
+    height: 250px;
+    top: 20%;
   }
 }
 
