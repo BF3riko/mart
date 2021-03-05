@@ -37,3 +37,18 @@
 
   transform: translateX(-50%) scale(-1, 1);
 }
+
+
+@media (min-width: 1922px) {
+  .side {
+    width: 400px;
+    height: 700px;
+  }
+}
+
+
+@media (max-width: 1918px) {
+  .side {
+    top: calc(22px + 118 * (100vw - 1366px) / 552);
+  }
+}

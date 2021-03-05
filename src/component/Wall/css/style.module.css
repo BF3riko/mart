@@ -46,6 +46,8 @@
   perspective: 100px;
 }
 
+
+
 .animated {
   cursor: default !important;
   animation: flipCard 1s linear forwards;
@@ -97,4 +99,29 @@
 .cardFaceBack {
   background: #c4c4c4;
   transform: rotateY(180deg);
+}
+
+
+@media (min-width: 1922px) {
+  .wrapper {
+    width: calc(625px + 775 * (100vw - 1920px) / 640);
+    top: 7%;
+  }
+
+  .square,
+  .scene {
+    width: calc(25px + 31 * (100vw - 1920px) / 640);
+    height: calc(25px + 31 * (100vw - 1920px) / 640);
+    margin: 0 auto;
+
+    border: 1px solid #000000;
+    perspective: 100px;
+  }
+}
+
+
+@media (max-width: 1918px) {
+  .wrapper {
+    top: calc(60px + 120 * (100vw - 1366px) / 552);
+  }
 }

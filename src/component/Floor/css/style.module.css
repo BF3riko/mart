@@ -8,3 +8,16 @@
 
   background-color: #a2a2a4;
 }
+
+
+@media (min-width: 1922px) {
+  .floor {
+    height: 70%;
+  }
+}
+
+@media (max-width: 1918px) {
+  .floor {
+    height: 70%;
+  }
+}

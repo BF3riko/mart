@@ -1,6 +1,6 @@
 .character {
   position: absolute;
-  z-index: 10;
+  z-index: 120;
 
   background-repeat: no-repeat;
   background-size: cover;

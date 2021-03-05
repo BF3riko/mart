@@ -6,3 +6,17 @@
   height: 42px;
   background: #A1AECF;
 }
+
+
+@media (min-width: 1922px) {
+  .ceiling {
+    height: 4%;
+  }
+}
+
+
+@media (max-width: 1918px) {
+  .ceiling {
+    height: calc(42px + 118 * (100vw - 1366px) / 552);
+  }
+}
