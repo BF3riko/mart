@@ -30,7 +30,7 @@ import ch_fedor from "../../img/Fedor.png";
 import ch_disk from "../../img/disk.png";
 import ch_papers from "../../img/papers.png";
 //import ch_money from "../../img/money.png";
-import ch_money2 from "../../img/money2.png";
+import ch_money2 from "../../img/money3.png";
 
 import winnerSfx from "../../music/winner-of-tour.mp3";
 import vseSfx from "../../music/vse-vashe.mp3";
@@ -345,10 +345,10 @@ class Scene extends Component {
         <Window text={this.state.text} big={true} />
 
         <Character
-          // posX={75}
-          // posY={90}
-          width={150}
-          height={80}
+          posX={72}
+          posY={85}
+          width={250}
+          height={180}
           scaleEnd={1}
           bg={ch_money2}
           money={true}
