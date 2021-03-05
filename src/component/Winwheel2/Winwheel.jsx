@@ -130,7 +130,7 @@ class Winwheel extends Component {
     ctx.strokeStyle = color;
     ctx.stroke();
 
-    var img = new Image();
+    let img = new Image();
     img.onload = function () {
       ctx.save();
       ctx.translate(
@@ -225,7 +225,6 @@ class Winwheel extends Component {
       rotate: 0,
       easeOut: 0,
       result: null,
-      spinning: false,
     });
   };
 

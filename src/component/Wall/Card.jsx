@@ -20,13 +20,13 @@ class Card extends Component {
 
   render() {
     const cardClasses = cn(Style.card, {
-      [Style.isFlipped]: this.state.usual ? false : this.state.flip,
+      [Style.isFlipped]: this.state.flip,
       [Style.animated]: this.state.usual,
     })
 
     return (
       <div className={Style.scene} onClick={this.handleFlipCard}>
-        <div ref={this.refCard} className={cardClasses}>
+        <div ref={this.refCard} className={cardClasses} style={{animationDelay: `${this.props.secondDelay}s`}}>
           <div className={`${Style.cardFace} ${Style.cardFaceFront}`} ></div>
           <div className={`${Style.cardFace} ${Style.cardFaceBack}`} >
             <p>{this.props.letter}</p>

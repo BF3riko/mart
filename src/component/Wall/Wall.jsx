@@ -28,26 +28,30 @@ class Wall extends Component {
       letter: 'А',
     },
     superFinalArr: 'СУПЕРФИНАЛ'.split(''),
-    numberEight: [2, 3, 4, 27, 29, 52, 53, 54, 77, 79, 102, 103, 104],
+    numberEight: [
+      {index: 2, second: 0.2},
+      {index: 3, second: 0.3},
+      {index: 4, second: 0.4},
+      {index: 27, second: 0.5},
+      {index: 29, second: 0.6},
+      {index: 52, second: 0.7},
+      {index: 53, second: 0.8},
+      {index: 54, second: 0.9},
+      {index: 77, second: 1},
+      {index: 79, second: 1.1},
+      {index: 102, second: 1.2},
+      {index: 103, second: 1.3},
+      {index: 104, second: 1.4},
+    ],
     wordIndices: [108, 109, 110, 111, 112, 113, 114, 115, 116, 117],
     flip: false,
   }
 
-  // splitting = (arr) => {
-  //   let size = 5;
-  //   let subarray = [];
-  //   for (let i = 0; i < Math.ceil(arr.length/size); i++){
-  //     subarray[i] = arr.slice((i*size), (i*size) + size);
-  //   }
-
-  //   return subarray;
-  // }
-
   paintingDigit = (index) => {
-    for (const number of this.state.numberEight) {
-      if (number === index) {
+    for (const item of this.state.numberEight) {
+      if (item.index === index) {
         return (
-          <Card usual={true}/>
+          <Card flip={true} usual={true} secondDelay={item.second}/>
         );
       }
     }

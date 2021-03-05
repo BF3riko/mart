@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 import Winwheel from "../Winwheel2";
 
 import Character from "../Character";
@@ -6,6 +6,9 @@ import Character from "../Character";
 import Wall from "../Wall/"; //Табло
 import Ceiling from "../Ceiling"; //Потолок
 import Window from "../Window"; //Окно справа в углу
+import Prize from '../Prize'; //Приз
+
+import ImgPrize from '../../img/card.png';
 
 import Style from "./css/style.module.css";
 
@@ -38,8 +41,38 @@ const RandomedCharacter = (props) => {
 class Scene extends Component {
   constructor(props) {
     super(props);
-    this.state = { phase: phases.START };
-    this.winwheelRef = React.createRef();
+    this.state = {
+      phase: phases.START,
+      maxSizePrize : 100,
+      win: false,
+    };
+
+    this.winwheelRef = createRef();
+    this.refScene = createRef();
+    this.refPrizeContainer = createRef();
+    this.refPrize = createRef();
+  }
+
+  getRandom = (min, max) => {
+    return Math.floor(Math.random() * (max - min) + min);
+  }
+
+  a = (index) => {
+    const boxSize = this.getRandom(100, 300);
+
+    const gameSize = this.refPrizeContainer.current.getBoundingClientRect();
+    const maxTop = gameSize.height - boxSize;
+    const maxLeft = gameSize.width - boxSize;
+
+    return {
+      height: `${boxSize / 1.5}px`,
+      width: `${boxSize}px`,
+      position: 'absolute',
+      top: `${this.getRandom(0, maxTop)}px`,
+      left: `${this.getRandom(0, maxLeft)}px`,
+      backgroundImage: `url("${ImgPrize}")`,
+      animationDelay: `${index/10}s`,
+    }
   }
 
   sendResult = (result) => {
@@ -48,7 +81,7 @@ class Scene extends Component {
       this.winwheelRef.current.pushToWin();
 
       setTimeout(() => {
-        this.setState({ result, phase: phases.END });
+        this.setState({ result, phase: phases.END, win: true });
       }, 2000);
 
       this.setState({ result, phase: phases.START });
@@ -56,9 +89,20 @@ class Scene extends Component {
       this.setState({ result, phase: phases.START });
     }
   };
+
   render() {
     return (
-      <div className={Style.scene}>
+      <div ref={this.refScene} className={Style.scene}>
+        <div ref={this.refPrizeContainer} className={Style.container} style={this.state.win ? {zIndex: 1000} : null}>
+          {this.state.phase === phases.END ?
+            Array(this.state.maxSizePrize).fill('1').map((item, index) => {
+              return (
+                <Prize myRef={this.refPrize} myStyle={this.a(index)}/>
+              )
+            }) : null
+          }
+        </div>
+
         <Side />
         <Side second={true} />
         <Ceiling />

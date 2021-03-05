@@ -46,12 +46,8 @@
   perspective: 100px;
 }
 
-.wrapper .animated {
+.animated {
   animation: flipCard 1s linear forwards;
-}
-
-.wrapper .animated:nth-child(2) {
-  animation-delay: 0.5s;
 }
 
 .card {
