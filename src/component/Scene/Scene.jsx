@@ -127,13 +127,12 @@ class Scene extends Component {
         });
 
         setTimeout(() => {
-          this.setState({
-            ...this.state,
-            text: "Сыграем ещё раз?",
-            spinSoundStatus: Sound.status.STOPPED,
-            winnerSoundStatus: Sound.status.STOPPED,
-            vseSoundStatus: Sound.status.STOPPED,
-          });
+          if (this.state.phase === phases.END) {
+            this.setState({
+              ...this.state,
+              text: "Сыграем ещё раз?",
+            });
+          }
         }, 10000);
       }, 2000);
     } else {
