@@ -72,3 +72,12 @@
 
   transform: translateX(-50%);
 }
+
+
+@media (min-width: 1922px) {
+  .window {
+    transform: scale(1.5);
+    right: 60px;
+    bottom: 100px;
+  }
+}

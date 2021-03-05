@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useMemo } from "react";
 
-import { character } from "./css/style.module.css";
+import cn from 'classnames';
+
+import Style from "./css/style.module.css";
 
 const Character = ({
   posX,
@@ -15,6 +17,13 @@ const Character = ({
   transitionTime = 0.5,
   noBack,
   children,
+  money,
+  fedor,
+  small,
+  big,
+  ilgiz,
+  bigMoney,
+  kuklev,
 }) => {
   const [pos, setPos] = useState({
     left: posX,
@@ -54,14 +63,24 @@ const Character = ({
         width: `${width}`,
       });
     }
-  }, [posEndX, posEndY, isAnimated]);
+  }, [posEndX, posEndY, isAnimated, money, fedor, small, big, ilgiz, bigMoney, kuklev,]);
 
   const onTransitionEnd = () => {
     !noBack && setPos({ left: posX, top: posY });
   };
 
+  const positionClassee = cn(Style.character, {
+    [Style.positionMoney]: money,
+    [Style.fedor]: fedor,
+    [Style.small]: fedor ? false : small,
+    [Style.big]: fedor ? false : big,
+    [Style.ilgizPos]: ilgiz,
+    [Style.bigMoney]: bigMoney,
+    [Style.kuklev]: kuklev,
+  })
+
   return (
-    <div className={character} style={style} onTransitionEnd={onTransitionEnd}>
+    <div className={positionClassee} style={style} onTransitionEnd={onTransitionEnd}>
       {children}
     </div>
   );

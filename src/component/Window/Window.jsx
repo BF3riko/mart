@@ -1,12 +1,18 @@
 import React, { Component } from "react";
 import Rectangle from "../../icons/Rectangle";
 
+import cn from 'classnames';
+
 import Style from "./css/style.module.css";
 
 import Img from "../../img/Zarubin.png";
 
 class Window extends Component {
   render() {
+    const windowClasses = cn(Style.window, {
+      [Style.big]: this.props.big,
+    })
+
     return (
       <div className={Style.window} style={{zIndex: this.props.zIndexWin}}>
         <div className={Style.container}>

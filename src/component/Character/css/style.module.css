@@ -5,3 +5,66 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+
+.positionMoney {
+  bottom: 0;
+  right: 300px;
+}
+
+.fedor {
+  top: 5%;
+  left: 28%;
+  height: 250px;
+  width: 180px;
+}
+
+@media (min-width: 1922px) {
+  .big {
+    transform: scale(1.6);
+    top: 25% !important;
+  }
+
+  .bigMoney {
+    transform: scale(1.6);
+    bottom: 5%;
+    right: 20%;
+  }
+
+  .ilgizPos {
+    left: 80% !important;
+  }
+
+  .kuklev {
+    top: 20% !important;
+  }
+
+  .fedor {
+    top: calc(75px + 35 * (100vw - 1922px) / 638);
+    left: calc(500px + (-50) * (100vw - 1922px) / 638);
+    height: calc(330px + 260 * (100vw - 1922px) / 638);
+    width: calc(200px + 30 * (100vw - 1922px) / 638);
+    /* width: 250px; */
+  }
+}
+
+
+@media (max-width: 1918px) {
+  .small {
+    transform: scale(0.9);
+  }
+
+  .ilgizPos {
+    left: 100% !important;
+  }
+
+  .kuklev {
+    left: 0 !important;
+  }
+
+  .fedor {
+    transform: scale(1.1);
+    top: calc(80px + 120 * (100vw - 1366px) / 552);
+    left: calc(320px + 210 * (100vw - 1366px) / 552);
+  }
+}

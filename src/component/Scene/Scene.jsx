@@ -216,31 +216,15 @@ class Scene extends Component {
 
         <Floor />
         <Character
-          posX={28}
-          posY={5}
-          width={180}
-          height={250}
+          // posX={28}
+          // posY={5}
+          // width={180}
+          // height={250}
           scaleEnd={1}
           bg={ch_fedor}
+          fedor={true}
         />
 
-        <Character
-          posX={55}
-          posY={28}
-          width={50}
-          height={50}
-          scaleEnd={1}
-          bg={ch_disk}
-        />
-
-        <Character
-          posX={17}
-          posY={29}
-          width={90}
-          height={90}
-          scaleEnd={1}
-          bg={ch_papers}
-        />
         <div className={Style.wrapper}>
           <div className={Style.persContainer}>
             <Winwheel
@@ -248,16 +232,30 @@ class Scene extends Component {
               sendResult={this.sendResult}
               isEnabled={this.state.phase === phases.START}
               className={Style.winwheel}
+              small={true}
+              big={true}
             />
 
             <Character
               posX={-10}
-              posY={10}
+              posY={0}
               width={350}
               height={600}
               scaleEnd={1}
               bg={bg_kuklev}
-            />
+              small={true}
+              big={true}
+              kuklev={true}
+            >
+              <Character
+                posX={60}
+                posY={10}
+                width={90}
+                height={90}
+                scaleEnd={1}
+                bg={ch_papers}
+              />
+            </Character>
 
             <Character
               posX={120}
@@ -270,7 +268,19 @@ class Scene extends Component {
               bg={bg_ilgiz}
               transitionTime={0.2}
               isAnimated={this.state.phase === phases.KICK}
-            />
+              small={true}
+              big={true}
+              ilgiz={true}
+            >
+              <Character
+                posX={55}
+                posY={0}
+                width={50}
+                height={50}
+                scaleEnd={1}
+                bg={ch_disk}
+              />
+            </Character>
           </div>
         </div>
         <RandomedCharacter
@@ -286,15 +296,17 @@ class Scene extends Component {
           noBack
           isAnimated={this.state.phase === phases.END}
         />
-        <Window text={this.state.text} zIndexWin={this.state.win ? 2000 : 12} />
+        <Window text={this.state.text} zIndexWin={this.state.win ? 2000 : 12} big={true} />
 
         <Character
-          posX={75}
-          posY={90}
+          // posX={75}
+          // posY={90}
           width={150}
           height={80}
           scaleEnd={1}
           bg={ch_money2}
+          money={true}
+          bigMoney={true}
         />
       </div>
     );

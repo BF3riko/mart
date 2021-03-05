@@ -1,3 +1,16 @@
+.winwheel {
+  position: absolute;
+  top: 60%;
+  left: 14%;
+  z-index: 10;
+
+  width: 800px;
+  height: 800px;
+
+  transform: translateY(-50%);
+}
+
+
 .wrapper {
   transform: scale(1, 0.7);
 }
@@ -105,4 +118,17 @@
   border-radius: 100%;
   transform: translate(-50%, -50%);
   background-color: black;
+}
+
+
+@media (min-width: 1922px) {
+  .big {
+    transform: translateY(-50%) scale(1.4);
+  }
+}
+
+@media (max-width: 1918px) {
+  .small {
+    transform: translateY(-50%) scale(0.9);
+  }
 }

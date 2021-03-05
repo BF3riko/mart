@@ -1,5 +1,7 @@
 import React, { Component, createRef } from "react";
 
+import cn from 'classnames';
+
 import Style from "./css/style.module.css";
 
 import wheel_figa from "../../img/wheel_figa.svg";
@@ -47,10 +49,6 @@ class Winwheel extends Component {
   };
 
   refWheel = createRef();
-
-  constructor(props) {
-    super(props);
-  }
 
   colorSymbol = (color) => {
     const white = "#FFFFFF";
@@ -237,8 +235,13 @@ class Winwheel extends Component {
   };
 
   render() {
+    const winWheelclasses = cn(Style.winwheel, {
+      [Style.small]: this.props.small,
+      [Style.big]: this.props.big,
+    })
+
     return (
-      <div className={this.props.className} onClick={this.spin}>
+      <div className={winWheelclasses} onClick={this.spin}>
         <div className={Style.wrapper}>
           <div className={Style.arrow}>
             <div className={Style.wrArrow}>

@@ -19,18 +19,6 @@
   background: linear-gradient(0deg, #7181ac, #7181ac), #7181ac;
 }
 
-.winwheel {
-  position: absolute;
-  top: 60%;
-  left: 14%;
-  z-index: 10;
-
-  width: 800px;
-  height: 800px;
-
-  transform: translateY(-50%);
-}
-
 .container {
   position: relative;
   z-index: -1000;
@@ -58,4 +46,19 @@
 
   width: 600px;
   height: 600px;
+}
+
+
+@media (max-width: 1918px) {
+  .wrapper {
+    top: 20%;
+    left: 3%;
+  }
+}
+
+@media (min-width: 1922px) {
+  .wrapper {
+    width: 1120px;
+    height: 1120px;
+  }
 }
