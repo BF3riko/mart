@@ -10,7 +10,6 @@
   }
 }
 
-
 .scene {
   position: relative;
 
@@ -32,7 +31,6 @@
   transform: translateY(-50%);
 }
 
-
 .container {
   position: relative;
   z-index: -1000;
@@ -45,7 +43,19 @@
   background: rgba(0, 0, 0, 0.2);
 }
 
-
 .hide {
   animation: hide 0.6s ease forwards;
+}
+
+.per-container {
+  position: relative;
+}
+
+.wrapper {
+  position: absolute;
+  top: 25%;
+  left: 14%;
+
+  width: 600px;
+  height: 600px;
 }

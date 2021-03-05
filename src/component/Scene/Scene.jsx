@@ -215,13 +215,6 @@ class Scene extends Component {
         <Wall />
 
         <Floor />
-
-        <Winwheel
-          ref={this.winwheelRef}
-          sendResult={this.sendResult}
-          isEnabled={this.state.phase === phases.START}
-          className={Style.winwheel}
-        />
         <Character
           posX={28}
           posY={5}
@@ -248,29 +241,38 @@ class Scene extends Component {
           scaleEnd={1}
           bg={ch_papers}
         />
+        <div className={Style.wrapper}>
+          <div className={Style.persContainer}>
+            <Winwheel
+              ref={this.winwheelRef}
+              sendResult={this.sendResult}
+              isEnabled={this.state.phase === phases.START}
+              className={Style.winwheel}
+            />
 
-        <Character
-          posX={6}
-          posY={20}
-          width={350}
-          height={600}
-          scaleEnd={1}
-          bg={bg_kuklev}
-        />
+            <Character
+              posX={-10}
+              posY={10}
+              width={350}
+              height={600}
+              scaleEnd={1}
+              bg={bg_kuklev}
+            />
 
-        <Character
-          posX={45}
-          posY={25}
-          posEndX={42}
-          posEndY={25}
-          width={400}
-          height={500}
-          scaleEnd={1}
-          bg={bg_ilgiz}
-          transitionTime={0.2}
-          isAnimated={this.state.phase === phases.KICK}
-        />
-
+            <Character
+              posX={120}
+              posY={10}
+              posEndX={105}
+              posEndY={10}
+              width={400}
+              height={500}
+              scaleEnd={1}
+              bg={bg_ilgiz}
+              transitionTime={0.2}
+              isAnimated={this.state.phase === phases.KICK}
+            />
+          </div>
+        </div>
         <RandomedCharacter
           ref={this.winCharecterRef}
           posX={100}
