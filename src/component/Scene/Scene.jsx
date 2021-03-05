@@ -133,7 +133,7 @@ class Scene extends Component {
               text: "Сыграем ещё раз?",
             });
           }
-        }, 10000);
+        }, 9000);
       }, 2000);
     } else {
       this.setState({ result, phase: phases.START });
@@ -209,6 +209,7 @@ class Scene extends Component {
       left: `${this.getRandom(-100, maxLeft + 100)}px`,
       backgroundImage: `url("${imgPrizeUrl}")`,
       animationDelay: `${index / 100}s`,
+      zIndex: `${index}`,
     };
   };
 
@@ -266,7 +267,7 @@ class Scene extends Component {
             />
 
             <Character
-              posX={-10}
+              // posX={-10}
               posY={0}
               width={350}
               height={600}

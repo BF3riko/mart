@@ -58,6 +58,7 @@
 
 @media (min-width: 1922px) {
   .wrapper {
+    left: 0%;
     width: 1120px;
     height: 1120px;
   }
