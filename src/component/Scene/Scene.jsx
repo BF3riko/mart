@@ -43,6 +43,7 @@ class Scene extends Component {
     super(props);
     this.state = {
       phase: phases.START,
+      text: "Крутите барабан!",
       maxSizePrize : 100,
       win: false,
     };
@@ -52,6 +53,54 @@ class Scene extends Component {
     this.refPrizeContainer = createRef();
     this.refPrize = createRef();
   }
+
+  sendResult = (result) => {
+    if (result) {
+      this.setState({ result, phase: phases.KICK });
+      this.winwheelRef.current.pushToWin();
+
+      setTimeout(() => {
+        this.setState({
+          result,
+          phase: phases.END,
+          text: "Сектор ПРИЗ!",
+          win: true,
+        });
+
+        setTimeout(() => {
+          this.setState({
+            text: "Сыграем ещё раз?",
+          });
+        }, 10000);
+      }, 2000);
+    } else {
+      this.setState({ result, phase: phases.START });
+    }
+
+    this.setState({ result, phase: phases.START });
+  };
+
+
+  refresh = (e) => {
+    if (this.state.phase === phases.END) {
+      this.setState(state => ({
+        ...state,
+        phase: phases.START,
+        text: "Крутите барабан!",
+        win: false,
+      }));
+
+      setTimeout(() => {
+        this.winCharecterRef.current.selectCharacter();
+      }, 10);
+
+      e.preventDefault();
+      return false;
+    }
+  };
+
+
+
 
   getRandom = (min, max) => {
     return Math.floor(Math.random() * (max - min) + min);
@@ -75,21 +124,6 @@ class Scene extends Component {
     }
   }
 
-  sendResult = (result) => {
-    if (result) {
-      this.setState({ result, phase: phases.KICK });
-      this.winwheelRef.current.pushToWin();
-
-      setTimeout(() => {
-        this.setState({ result, phase: phases.END, win: true });
-      }, 2000);
-
-      this.setState({ result, phase: phases.START });
-    } else {
-      this.setState({ result, phase: phases.START });
-    }
-  };
-
   render() {
     return (
       <div ref={this.refScene} className={Style.scene}>
@@ -107,38 +141,85 @@ class Scene extends Component {
         <Side second={true} />
         <Ceiling />
         <Wall />
+
+        <Floor />
+
         <Winwheel
           ref={this.winwheelRef}
           sendResult={this.sendResult}
           className={Style.winwheel}
         />
-        <Character posX={5} posY={20} width={300} height={550} bg={bg_egg} />
+        <Character
+          posX={28}
+          posY={5}
+          width={180}
+          height={250}
+          scaleEnd={1}
+          bg={ch_fedor}
+        />
+
+        <Character
+          posX={55}
+          posY={28}
+          width={50}
+          height={50}
+          scaleEnd={1}
+          bg={ch_disk}
+        />
+
+        <Character
+          posX={17}
+          posY={29}
+          width={90}
+          height={90}
+          scaleEnd={1}
+          bg={ch_papers}
+        />
+
+        <Character
+          posX={6}
+          posY={20}
+          width={350}
+          height={600}
+          scaleEnd={1}
+          bg={bg_kuklev}
+        />
+
         <Character
           posX={45}
-          posY={20}
+          posY={25}
           posEndX={42}
-          posEndY={20}
-          width={300}
+          posEndY={25}
+          width={400}
           height={500}
-          bg={bg_rabbit}
+          scaleEnd={1}
+          bg={bg_ilgiz}
           transitionTime={0.2}
           isAnimated={this.state.phase === phases.KICK}
         />
 
         <RandomedCharacter
+          ref={this.winCharecterRef}
           posX={100}
-          posY={10}
-          posEndX={40}
-          posEndY={50}
+          posY={15}
+          posEndX={50}
+          posEndY={35}
           width={300}
           height={300}
-          transitionTime={3}
+          scaleEnd={2.5}
+          transitionTime={this.state.phase === phases.END ? 5 : 0}
           noBack
           isAnimated={this.state.phase === phases.END}
         />
-
-        <Floor />
         <Window />
+        <Character
+          posX={75}
+          posY={90}
+          width={150}
+          height={80}
+          scaleEnd={1}
+          bg={ch_money2}
+        />
       </div>
     );
   }
