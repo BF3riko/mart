@@ -100,7 +100,7 @@ class Scene extends Component {
             ...this.state,
             win: true,
           });
-        }, 5000);
+        }, 5500);
 
         setTimeout(() => {
           this.setState({
@@ -108,7 +108,7 @@ class Scene extends Component {
             text: "Сыграем ещё раз?",
             win: false,
           });
-        }, 15000);
+        }, 15500);
       }, 2000);
 
 

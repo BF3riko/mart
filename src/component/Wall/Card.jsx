@@ -27,7 +27,9 @@ class Card extends Component {
     return (
       <div className={Style.scene} onClick={this.handleFlipCard}>
         <div ref={this.refCard} className={cardClasses} style={{animationDelay: `${this.props.secondDelay}s`}}>
-          <div className={`${Style.cardFace} ${Style.cardFaceFront}`} ></div>
+          <div className={`${Style.cardFace} ${Style.cardFaceFront}`} >
+            <p>{this.props.letterFirst}</p>
+          </div>
           <div className={`${Style.cardFace} ${Style.cardFaceBack}`} >
             <p>{this.props.letter}</p>
           </div>

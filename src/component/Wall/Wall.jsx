@@ -10,6 +10,7 @@ class Wall extends Component {
     letterM: {
       index: 35,
       letter: 'M',
+      letterFirst: 'С',
     },
     letterFirstA: {
       index: 36,
@@ -18,6 +19,7 @@ class Wall extends Component {
     letterP: {
       index: 37,
       letter: 'Р',
+      letterFirst: 'Ф',
     },
     letterT: {
       index: 38,
@@ -26,6 +28,7 @@ class Wall extends Component {
     letterA: {
       index: 39,
       letter: 'А',
+      letterFirst: 'Р',
     },
     superFinalArr: 'СУПЕРФИНАЛ'.split(''),
     numberEight: [
@@ -60,6 +63,7 @@ class Wall extends Component {
       return (
         <Card
           letter={this.state.letterM.letter}
+          letterFirst={this.state.letterM.letterFirst}
           flip={true}
         />
       );
@@ -77,6 +81,7 @@ class Wall extends Component {
       return (
         <Card
           letter={this.state.letterP.letter}
+          letterFirst={this.state.letterP.letterFirst}
           flip={true}
         />
       );
@@ -94,6 +99,7 @@ class Wall extends Component {
       return (
         <Card
           letter={this.state.letterA.letter}
+          letterFirst={this.state.letterA.letterFirst}
           flip={true}
         />
       );

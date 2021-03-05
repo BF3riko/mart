@@ -90,6 +90,10 @@
   background: #000000;
 }
 
+.cardFaceFront > p {
+  color: #FFFFFF;
+}
+
 .cardFaceBack {
   background: #c4c4c4;
   transform: rotateY(180deg);
