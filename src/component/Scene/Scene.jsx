@@ -9,9 +9,15 @@ import Window from "../Window"; //Окно справа в углу
 
 import Style from "./css/style.module.css";
 
-import bg from "../../img/якубович.jpg";
-import bg_rabbit from "../../img/Ilgiz.png";
-import bg_egg from "../../img/Kuklev.png";
+import bg_test from "../../img/якубович.jpg";
+import bg_ilgiz from "../../img/Ilgiz.png";
+import bg_kuklev from "../../img/Kuklev.png";
+import ch_fedor from "../../img/Fedor.png";
+
+import ch_disk from "../../img/disk.png";
+import ch_papers from "../../img/papers.png";
+import ch_money from "../../img/money.png";
+import ch_money2 from "../../img/money2.png";
 
 import Side from "../Side";
 import Floor from "../Floor";
@@ -32,20 +38,20 @@ class RandomedCharacter extends Component {
     let rnd = Math.round(Math.random() * 3);
     switch (rnd) {
       case 0:
-        this._bg = bg;
+        this._bg = bg_test;
         break;
 
       case 1:
-        this._bg = bg_rabbit;
+        this._bg = bg_ilgiz;
         break;
 
       case 2:
-        this._bg = bg_egg;
+        this._bg = bg_kuklev;
         break;
 
       case 3:
       default:
-        this._bg = bg_rabbit;
+        this._bg = bg_ilgiz;
         break;
     }
   };
@@ -114,6 +120,9 @@ class Scene extends Component {
         <Side second={true} />
         <Ceiling />
         <Wall />
+
+        <Floor />
+
         <Winwheel
           ref={this.winwheelRef}
           sendResult={this.sendResult}
@@ -122,12 +131,30 @@ class Scene extends Component {
         />
 
         <Character
-          posX={25}
+          posX={28}
           posY={5}
           width={180}
-          height={300}
+          height={250}
           scaleEnd={1}
-          bg={bg_rabbit}
+          bg={ch_fedor}
+        />
+
+        <Character
+          posX={55}
+          posY={28}
+          width={50}
+          height={50}
+          scaleEnd={1}
+          bg={ch_disk}
+        />
+
+        <Character
+          posX={17}
+          posY={29}
+          width={90}
+          height={90}
+          scaleEnd={1}
+          bg={ch_papers}
         />
 
         <Character
@@ -136,18 +163,18 @@ class Scene extends Component {
           width={350}
           height={600}
           scaleEnd={1}
-          bg={bg_egg}
+          bg={bg_kuklev}
         />
 
         <Character
           posX={45}
-          posY={20}
+          posY={25}
           posEndX={42}
-          posEndY={20}
+          posEndY={25}
           width={400}
           height={500}
           scaleEnd={1}
-          bg={bg_rabbit}
+          bg={bg_ilgiz}
           transitionTime={0.2}
           isAnimated={this.state.phase === phases.KICK}
         />
@@ -165,9 +192,16 @@ class Scene extends Component {
           noBack
           isAnimated={this.state.phase === phases.END}
         />
-
-        <Floor />
         <Window text={this.state.text} />
+
+        <Character
+          posX={75}
+          posY={90}
+          width={150}
+          height={80}
+          scaleEnd={1}
+          bg={ch_money2}
+        />
       </div>
     );
   }

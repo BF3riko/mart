@@ -85,3 +85,13 @@
   width: 100%;
   height: 100%;
 }
+
+.bottom {
+  width: 485px;
+  height: 50%;
+  bottom: 2px;
+  left: 158px;
+  position: absolute;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
