@@ -1,4 +1,5 @@
 import React, { Component, createRef } from "react";
+import useSound from "use-sound";
 import cn from "classnames";
 
 import Winwheel from "../Winwheel2";
@@ -10,11 +11,18 @@ import Ceiling from "../Ceiling"; //Потолок
 import Window from "../Window"; //Окно справа в углу
 import Prize from "../Prize"; //Приз
 
-import ImgPrize from "../../img/card.png";
-
 import Style from "./css/style.module.css";
 
-import bg_test from "../../img/якубович.jpg";
+import bg_tuboltcev from "../../img/якубович.jpg";
+import bg_volkov from "../../img/Ilgiz.png";
+import bg_kondakov from "../../img/Kuklev.png";
+import bg_sirota from "../../img/Fedor.png";
+
+import prize_stockman from "../../img/card_stockman.png";
+import prize_letual from "../../img/card_letual.png";
+import prize_ozon from "../../img/card_ozon.png";
+import prize_republic from "../../img/card_republic.png";
+
 import bg_ilgiz from "../../img/Ilgiz.png";
 import bg_kuklev from "../../img/Kuklev.png";
 import ch_fedor from "../../img/Fedor.png";
@@ -40,23 +48,23 @@ class RandomedCharacter extends Component {
   }
 
   selectCharacter = () => {
-    let rnd = Math.round(Math.random() * 3);
-    switch (rnd) {
+    this.selectedCharacter = Math.round(Math.random() * 3);
+    switch (this.selectedCharacter) {
       case 0:
-        this._bg = bg_test;
+        this._bg = bg_tuboltcev;
         break;
 
       case 1:
-        this._bg = bg_ilgiz;
+        this._bg = bg_volkov;
         break;
 
       case 2:
-        this._bg = bg_kuklev;
+        this._bg = bg_kondakov;
         break;
 
       case 3:
       default:
-        this._bg = bg_ilgiz;
+        this._bg = bg_sirota;
         break;
     }
   };
@@ -72,11 +80,12 @@ class Scene extends Component {
     this.state = {
       phase: phases.START,
       text: "Крутите барабан!",
-      maxSizePrize: 100,
+      maxSizePrize: 500,
       win: false,
     };
 
     this.winwheelRef = createRef();
+    this.winCharecterRef = createRef();
     this.refScene = createRef();
     this.refPrizeContainer = createRef();
     this.refPrize = createRef();
@@ -89,6 +98,7 @@ class Scene extends Component {
 
       setTimeout(() => {
         this.setState({
+          ...this.state,
           result,
           phase: phases.END,
           text: "Сектор ПРИЗ!",
@@ -97,17 +107,9 @@ class Scene extends Component {
         setTimeout(() => {
           this.setState({
             ...this.state,
-            win: true,
-          });
-        }, 5500);
-
-        setTimeout(() => {
-          this.setState({
-            ...this.state,
             text: "Сыграем ещё раз?",
-            win: false,
           });
-        }, 15500);
+        }, 10000);
       }, 2000);
     } else {
       this.setState({ result, phase: phases.START });
@@ -118,16 +120,20 @@ class Scene extends Component {
 
   refresh = (e) => {
     if (this.state.phase === phases.END) {
-      this.setState((state) => ({
-        ...state,
-        phase: phases.START,
-        text: "Крутите барабан!",
-        win: false,
-      }));
+      this.setState({
+        ...this.state,
+        win: true,
+      });
 
       setTimeout(() => {
+        this.setState((state) => ({
+          ...state,
+          phase: phases.START,
+          text: "Крутите барабан!",
+          win: false,
+        }));
         this.winCharecterRef.current.selectCharacter();
-      }, 10);
+      }, 5000);
 
       e.preventDefault();
       return false;
@@ -145,14 +151,34 @@ class Scene extends Component {
     const maxTop = gameSize.height - boxSize;
     const maxLeft = gameSize.width - boxSize;
 
+    let imgPrizeUrl;
+    switch (this.winCharecterRef.current) {
+      case 0:
+        imgPrizeUrl = prize_stockman;
+        break;
+
+      case 1:
+        imgPrizeUrl = prize_letual;
+        break;
+
+      case 2:
+        imgPrizeUrl = prize_ozon;
+        break;
+
+      case 3:
+      default:
+        imgPrizeUrl = prize_republic;
+        break;
+    }
+
     return {
       height: `${boxSize / 1.5}px`,
       width: `${boxSize}px`,
       position: "absolute",
-      top: `${this.getRandom(0, maxTop)}px`,
-      left: `${this.getRandom(0, maxLeft)}px`,
-      backgroundImage: `url("${ImgPrize}")`,
-      animationDelay: `${index / 10}s`,
+      top: `${this.getRandom(-100, maxTop + 100)}px`,
+      left: `${this.getRandom(-100, maxLeft + 100)}px`,
+      backgroundImage: `url("${imgPrizeUrl}")`,
+      animationDelay: `${index / 100}s`,
     };
   };
 
@@ -162,7 +188,7 @@ class Scene extends Component {
     });
 
     return (
-      <div ref={this.refScene} className={Style.scene}>
+      <div ref={this.refScene} className={Style.scene} onClick={this.refresh}>
         <div
           ref={this.refPrizeContainer}
           className={containerPrize}
@@ -174,6 +200,7 @@ class Scene extends Component {
                 .map((item, index) => {
                   return (
                     <Prize
+                      key={index.toString()}
                       myRef={this.refPrize}
                       myStyle={this.renderPrize(index)}
                     />
