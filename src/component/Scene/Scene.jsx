@@ -13,9 +13,9 @@ import Prize from "../Prize"; //Приз
 
 import Style from "./css/style.module.css";
 
-import bg_tuboltcev from "../../img/якубович.jpg";
+import bg_tuboltcev from "../../img/tubolcev.png";
 import bg_volkov from "../../img/Ilgiz.png";
-import bg_kondakov from "../../img/Kuklev.png";
+import bg_kondakov from "../../img/kondakov.png";
 import bg_sirota from "../../img/Fedor.png";
 
 import prize_stockman from "../../img/card_stockman.jpg";
