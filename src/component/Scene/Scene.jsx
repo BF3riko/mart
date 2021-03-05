@@ -1,6 +1,6 @@
 import React, { Component, createRef } from "react";
-import cn from 'classnames';
-
+import useSound from "use-sound";
+import cn from "classnames";
 
 import Winwheel from "../Winwheel2";
 
@@ -9,13 +9,20 @@ import Character from "../Character";
 import Wall from "../Wall/"; //Табло
 import Ceiling from "../Ceiling"; //Потолок
 import Window from "../Window"; //Окно справа в углу
-import Prize from '../Prize'; //Приз
-
-import ImgPrize from '../../img/card.png';
+import Prize from "../Prize"; //Приз
 
 import Style from "./css/style.module.css";
 
-import bg_test from "../../img/якубович.jpg";
+import bg_tuboltcev from "../../img/якубович.jpg";
+import bg_volkov from "../../img/Ilgiz.png";
+import bg_kondakov from "../../img/Kuklev.png";
+import bg_sirota from "../../img/Fedor.png";
+
+import prize_stockman from "../../img/card_stockman.png";
+import prize_letual from "../../img/card_letual.png";
+import prize_ozon from "../../img/card_ozon.png";
+import prize_republic from "../../img/card_republic.png";
+
 import bg_ilgiz from "../../img/Ilgiz.png";
 import bg_kuklev from "../../img/Kuklev.png";
 import ch_fedor from "../../img/Fedor.png";
@@ -41,23 +48,23 @@ class RandomedCharacter extends Component {
   }
 
   selectCharacter = () => {
-    let rnd = Math.round(Math.random() * 3);
-    switch (rnd) {
+    this.selectedCharacter = Math.round(Math.random() * 3);
+    switch (this.selectedCharacter) {
       case 0:
-        this._bg = bg_test;
+        this._bg = bg_tuboltcev;
         break;
 
       case 1:
-        this._bg = bg_ilgiz;
+        this._bg = bg_volkov;
         break;
 
       case 2:
-        this._bg = bg_kuklev;
+        this._bg = bg_kondakov;
         break;
 
       case 3:
       default:
-        this._bg = bg_ilgiz;
+        this._bg = bg_sirota;
         break;
     }
   };
@@ -73,11 +80,12 @@ class Scene extends Component {
     this.state = {
       phase: phases.START,
       text: "Крутите барабан!",
-      maxSizePrize : 100,
+      maxSizePrize: 500,
       win: false,
     };
 
     this.winwheelRef = createRef();
+    this.winCharecterRef = createRef();
     this.refScene = createRef();
     this.refPrizeContainer = createRef();
     this.refPrize = createRef();
@@ -90,6 +98,7 @@ class Scene extends Component {
 
       setTimeout(() => {
         this.setState({
+          ...this.state,
           result,
           phase: phases.END,
           text: "Сектор ПРИЗ!",
@@ -98,20 +107,10 @@ class Scene extends Component {
         setTimeout(() => {
           this.setState({
             ...this.state,
-            win: true,
-          });
-        }, 5500);
-
-        setTimeout(() => {
-          this.setState({
-            ...this.state,
             text: "Сыграем ещё раз?",
-            win: false,
           });
-        }, 15500);
+        }, 10000);
       }, 2000);
-
-
     } else {
       this.setState({ result, phase: phases.START });
     }
@@ -119,31 +118,31 @@ class Scene extends Component {
     this.setState({ result, phase: phases.START });
   };
 
-
   refresh = (e) => {
     if (this.state.phase === phases.END) {
-      this.setState(state => ({
-        ...state,
-        phase: phases.START,
-        text: "Крутите барабан!",
-        win: false,
-      }));
+      this.setState({
+        ...this.state,
+        win: true,
+      });
 
       setTimeout(() => {
+        this.setState((state) => ({
+          ...state,
+          phase: phases.START,
+          text: "Крутите барабан!",
+          win: false,
+        }));
         this.winCharecterRef.current.selectCharacter();
-      }, 10);
+      }, 5000);
 
       e.preventDefault();
       return false;
     }
   };
 
-
-
-
   getRandom = (min, max) => {
     return Math.floor(Math.random() * (max - min) + min);
-  }
+  };
 
   renderPrize = (index) => {
     const boxSize = this.getRandom(100, 300);
@@ -152,32 +151,62 @@ class Scene extends Component {
     const maxTop = gameSize.height - boxSize;
     const maxLeft = gameSize.width - boxSize;
 
+    let imgPrizeUrl;
+    switch (this.winCharecterRef.current) {
+      case 0:
+        imgPrizeUrl = prize_stockman;
+        break;
+
+      case 1:
+        imgPrizeUrl = prize_letual;
+        break;
+
+      case 2:
+        imgPrizeUrl = prize_ozon;
+        break;
+
+      case 3:
+      default:
+        imgPrizeUrl = prize_republic;
+        break;
+    }
+
     return {
       height: `${boxSize / 1.5}px`,
       width: `${boxSize}px`,
-      position: 'absolute',
-      top: `${this.getRandom(0, maxTop)}px`,
-      left: `${this.getRandom(0, maxLeft)}px`,
-      backgroundImage: `url("${ImgPrize}")`,
-      animationDelay: `${index/10}s`,
-    }
-  }
+      position: "absolute",
+      top: `${this.getRandom(-100, maxTop + 100)}px`,
+      left: `${this.getRandom(-100, maxLeft + 100)}px`,
+      backgroundImage: `url("${imgPrizeUrl}")`,
+      animationDelay: `${index / 100}s`,
+    };
+  };
 
   render() {
     const containerPrize = cn(Style.container, {
       [Style.hide]: !this.state.win,
-    })
+    });
 
     return (
-      <div ref={this.refScene} className={Style.scene}>
-        <div ref={this.refPrizeContainer} className={containerPrize} style={this.state.win ? {zIndex: 1000} : null}>
-          {this.state.win ?
-            Array(this.state.maxSizePrize).fill('1').map((item, index) => {
-              return (
-                <Prize myRef={this.refPrize} myStyle={this.renderPrize(index)}/>
-              )
-            }) : null
-          }
+      <div ref={this.refScene} className={Style.scene} onClick={this.refresh}>
+        <div
+          ref={this.refPrizeContainer}
+          className={containerPrize}
+          style={this.state.win ? { zIndex: 1000 } : null}
+        >
+          {this.state.win
+            ? Array(this.state.maxSizePrize)
+                .fill("1")
+                .map((item, index) => {
+                  return (
+                    <Prize
+                      key={index.toString()}
+                      myRef={this.refPrize}
+                      myStyle={this.renderPrize(index)}
+                    />
+                  );
+                })
+            : null}
         </div>
 
         <Side />
@@ -186,13 +215,6 @@ class Scene extends Component {
         <Wall />
 
         <Floor />
-
-        <Winwheel
-          ref={this.winwheelRef}
-          sendResult={this.sendResult}
-          isEnabled={this.state.phase === phases.START}
-          className={Style.winwheel}
-        />
         <Character
           posX={28}
           posY={5}
@@ -219,29 +241,38 @@ class Scene extends Component {
           scaleEnd={1}
           bg={ch_papers}
         />
+        <div className={Style.wrapper}>
+          <div className={Style.persContainer}>
+            <Winwheel
+              ref={this.winwheelRef}
+              sendResult={this.sendResult}
+              isEnabled={this.state.phase === phases.START}
+              className={Style.winwheel}
+            />
 
-        <Character
-          posX={6}
-          posY={20}
-          width={350}
-          height={600}
-          scaleEnd={1}
-          bg={bg_kuklev}
-        />
+            <Character
+              posX={-10}
+              posY={10}
+              width={350}
+              height={600}
+              scaleEnd={1}
+              bg={bg_kuklev}
+            />
 
-        <Character
-          posX={45}
-          posY={25}
-          posEndX={42}
-          posEndY={25}
-          width={400}
-          height={500}
-          scaleEnd={1}
-          bg={bg_ilgiz}
-          transitionTime={0.2}
-          isAnimated={this.state.phase === phases.KICK}
-        />
-
+            <Character
+              posX={120}
+              posY={10}
+              posEndX={105}
+              posEndY={10}
+              width={400}
+              height={500}
+              scaleEnd={1}
+              bg={bg_ilgiz}
+              transitionTime={0.2}
+              isAnimated={this.state.phase === phases.KICK}
+            />
+          </div>
+        </div>
         <RandomedCharacter
           ref={this.winCharecterRef}
           posX={100}
