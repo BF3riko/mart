@@ -1,4 +1,7 @@
 import React, { Component, createRef } from "react";
+import cn from 'classnames';
+
+
 import Winwheel from "../Winwheel2";
 
 import Character from "../Character";
@@ -95,10 +98,14 @@ class Scene extends Component {
 
         setTimeout(() => {
           this.setState({
+            ...this.state,
             text: "Сыграем ещё раз?",
+            win: false,
           });
-        }, 10000);
+        }, 10500);
       }, 2000);
+
+
     } else {
       this.setState({ result, phase: phases.START });
     }
@@ -132,7 +139,7 @@ class Scene extends Component {
     return Math.floor(Math.random() * (max - min) + min);
   }
 
-  a = (index) => {
+  renderPrize = (index) => {
     const boxSize = this.getRandom(100, 300);
 
     const gameSize = this.refPrizeContainer.current.getBoundingClientRect();
@@ -151,13 +158,17 @@ class Scene extends Component {
   }
 
   render() {
+    const containerPrize = cn(Style.container, {
+      [Style.hide]: !this.state.win,
+    })
+
     return (
       <div ref={this.refScene} className={Style.scene}>
-        <div ref={this.refPrizeContainer} className={Style.container} style={this.state.win ? {zIndex: 1000} : null}>
+        <div ref={this.refPrizeContainer} className={containerPrize} style={this.state.win ? {zIndex: 1000} : null}>
           {this.state.phase === phases.END ?
             Array(this.state.maxSizePrize).fill('1').map((item, index) => {
               return (
-                <Prize myRef={this.refPrize} myStyle={this.a(index)}/>
+                <Prize myRef={this.refPrize} myStyle={this.renderPrize(index)}/>
               )
             }) : null
           }

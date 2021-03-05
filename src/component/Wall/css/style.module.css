@@ -47,6 +47,7 @@
 }
 
 .animated {
+  cursor: default !important;
   animation: flipCard 1s linear forwards;
 }
 
