@@ -124,11 +124,13 @@
 @media (min-width: 1922px) {
   .big {
     transform: translateY(-50%) scale(1.4);
+    left: 50%;
   }
 }
 
 @media (max-width: 1918px) {
   .small {
     transform: translateY(-50%) scale(0.9);
+    left: 24%;
   }
 }
