@@ -8,7 +8,7 @@ import Img from "../../img/Zarubin.png";
 class Window extends Component {
   render() {
     return (
-      <div className={Style.window}>
+      <div className={Style.window} style={{zIndex: this.props.zIndexWin}}>
         <div className={Style.container}>
           <div className={Style.square}>
             <img className={Style.img} src={Img} alt="картинка" />

@@ -93,8 +93,14 @@ class Scene extends Component {
           result,
           phase: phases.END,
           text: "Сектор ПРИЗ!",
-          win: true,
         });
+
+        setTimeout(() => {
+          this.setState({
+            ...this.state,
+            win: true,
+          });
+        }, 5000);
 
         setTimeout(() => {
           this.setState({
@@ -102,7 +108,7 @@ class Scene extends Component {
             text: "Сыграем ещё раз?",
             win: false,
           });
-        }, 10500);
+        }, 15000);
       }, 2000);
 
 
@@ -165,7 +171,7 @@ class Scene extends Component {
     return (
       <div ref={this.refScene} className={Style.scene}>
         <div ref={this.refPrizeContainer} className={containerPrize} style={this.state.win ? {zIndex: 1000} : null}>
-          {this.state.phase === phases.END ?
+          {this.state.win ?
             Array(this.state.maxSizePrize).fill('1').map((item, index) => {
               return (
                 <Prize myRef={this.refPrize} myStyle={this.renderPrize(index)}/>
@@ -249,7 +255,8 @@ class Scene extends Component {
           noBack
           isAnimated={this.state.phase === phases.END}
         />
-        <Window text={this.state.text}/>
+        <Window text={this.state.text} zIndexWin={this.state.win ? 2000 : 12} />
+
         <Character
           posX={75}
           posY={90}
